@@ -1,9 +1,4 @@
-require 'simplecov'
-require './lib/battleship'
-require 'minitest/autorun'
-require 'minitest/pride'
-require "minitest/emoji"
-require 'pry'
+require './test/test_helper.rb'
 
 class BattleShipTest < Minitest::Test
 
