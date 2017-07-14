@@ -1,3 +1,4 @@
+require './lib/board'
 class Game
 
   def initial_instructions
