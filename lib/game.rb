@@ -53,7 +53,6 @@ class Game
   def place_computer_ship(unoccupied_square, comp_board)
     choice = ["horizontal", "vertical"].sample
     unoccupied_square.values[0].occupied = true
-    # start_square_name = unoccupied_square.keys.join#returns string
     if choice = "horizontal"
       place_ship_horizonally(unoccupied_square, comp_board)
     else
@@ -64,24 +63,24 @@ class Game
   def place_ship_horizonally(unoccupied_square, comp_board)
     unoccupied_square_column = unoccupied_square.keys.join[1].to_i
     unoccupied_square_row = unoccupied_square.keys.join[0]
-    choice = ["left", "right"].sample
-    if unoccupied_square_column == 4
+    unoccupied_square_name = unoccupied_square.keys.join
+    if comp_board.left_occupied?(unoccupied_square_name) && comp_board.right_occupied?(unoccupied_square_name)
+      place_ship_vertically(unoccupied_square, comp_board)
+    elsif comp_board.left_occupied?(unoccupied_square_name)
+      new_key = go_right(unoccupied_square_column, unoccupied_square_row)
+      new_square = comp_board.find_square(new_key)
+    elsif comp_board.right_occupied?(unoccupied_square_name)
       new_key = go_left(unoccupied_square_column, unoccupied_square_row)
       new_square = comp_board.find_square(new_key)
-      if new_square.values[0].occupied
-        
-      else
-        new_square.values[0].occupied = true
-      end
-    elsif unoccupied_square_column == 1
-      new_key = go_right(unoccupied_square_column, unoccupied_square_row)
-      comp_board.find_square(new_key)
-    elsif choice == "left"
-      new_key = go_left(unoccupied_square_column, unoccupied_square_row)
-      comp_board.find_square(new_key)
-    elsif choice == "right"
-      new_key = go_right(unoccupied_square_column, unoccupied_square_row)
-      comp_board.find_square(new_key)
+    else
+        choice = ["left", "right"].sample
+        if choice = "left"
+          new_key = go_left(unoccupied_square_column, unoccupied_square_row)
+          new_square = comp_board.find_square(new_key)
+        else
+          new_key = go_right(unoccupied_square_column, unoccupied_square_row)
+          new_square = comp_board.find_square(new_key)
+        end
     end
   end
 

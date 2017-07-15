@@ -62,12 +62,15 @@ class GameTest < Minitest::Test
   end
 
   def test_can_place_ships_horizontally
-    skip
+
     game = Game.new
     board = Board.new
-    unoccupied_square = game.find_unoccupied_start_square(board)
-    # start_square_name =start_square.keys.join
-    game.place_ship_horizonally(unoccupied_square, board)
+    unoccupied_square = board.layout[0]
+    right_square = game.place_ship_horizonally(unoccupied_square, board)
+    assert_equal board.layout[1], right_square
+    unoccupied_square = board.layout[3]
+    left_square = game.place_ship_horizonally(unoccupied_square, board)
+    assert_equal board.layout[2], left_square
   end
 
 end
