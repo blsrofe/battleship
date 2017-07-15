@@ -38,6 +38,7 @@ class Game
 
   def computer_ship_placement(comp_board)
     unoccupied_square = find_unoccupied_start_square(comp_board)
+    place_computer_ship(unoccupied_square)
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -47,6 +48,10 @@ class Game
     else
       find_unoccupied_start_square(comp_board)
     end
+  end
+
+  def place_computer_ship(unoccupied_square)
+    unoccupied_square.values[0].occupied = true
   end
 
 end

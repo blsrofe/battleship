@@ -1,6 +1,6 @@
 class Square
 
-  attr_reader :occupied
+  attr_accessor :occupied
 
   def initialize
     @occupied = false
