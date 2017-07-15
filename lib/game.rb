@@ -1,6 +1,10 @@
 require './lib/board'
 class Game
 
+  def initialize
+    @board = Board.new
+  end
+
   def initial_instructions
     puts "Welcome to BATTLESHIP"
     puts ""
@@ -10,7 +14,7 @@ class Game
 
   def start_sequence(choice)
     if choice == "p" || choice == "play"
-      puts "This will start the game"#change this later
+      computer_ship_placement
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -27,8 +31,16 @@ class Game
     end
   end
 
-  def give_instructions#I have to write extra lines to make the test past.
+  def give_instructions
     "You have two ships. You will be prompted to place your ships."
+  end
+
+  def computer_ship_placement
+    find_random_start_square
+  end
+
+  def find_random_start_square
+    #.sample will pick one random element from an array
   end
 
 end
