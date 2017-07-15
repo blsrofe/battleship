@@ -27,12 +27,11 @@ class GameTest < Minitest::Test
     assert_equal message, game.computer_ship_placement
   end
 
-  def test_can_find_random_square_to_start_placing_ships
+  def test_can_find_unoccupied_square_to_place_ships#add to this test later after you have added method to place ships
     game = Game.new
-    square = game.find_random_start_square(Board.new)
-    name = square.keys
     board = Board.new
-    assert board.layout.any? {|square| square.keys == name} 
+    name = game.find_unoccupied_start_square(board)
+    refute name.values[0].occupied
   end
 
 end

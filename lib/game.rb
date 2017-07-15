@@ -37,16 +37,16 @@ class Game
   end
 
   def computer_ship_placement(comp_board)
-    random_square = find_random_start_square(comp_board)
-    check_square = check_if_square_is_empty(random_square)
+    unoccupied_square = find_unoccupied_start_square(comp_board)
   end
 
-  def find_random_start_square(comp_board)
-    comp_board.layout.sample#returns one hash from layout
-  end
-
-  def check_if_square_is_empty(random_square)
-    random_square.value
+  def find_unoccupied_start_square(comp_board)
+    random_square = comp_board.layout.sample
+    if random_square.values[0].occupied == false
+      return random_square
+    else
+      find_unoccupied_start_square(comp_board)
+    end
   end
 
 end
