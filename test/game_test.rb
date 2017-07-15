@@ -34,13 +34,22 @@ class GameTest < Minitest::Test
     refute name.values[0].occupied
   end
 
-  def test_can_place_computer_ships
+  def test_can_place_initial_computer_ship_start_square
     game = Game.new
     board = Board.new
     unoccupied_square = game.find_unoccupied_start_square(board)
     refute unoccupied_square.values[0].occupied
-    game.place_computer_ship(unoccupied_square)
+    game.place_computer_ship(unoccupied_square, board)
     assert unoccupied_square.values[0].occupied
+  end
+
+  def test_can_place_ships_horizontally
+    skip
+    game = Game.new
+    board = Board.new
+    unoccupied_square = game.find_unoccupied_start_square(board)
+    # start_square_name =start_square.keys.join
+    game.place_ship_horizonally(unoccupied_square, board)
   end
 
 end
