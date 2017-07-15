@@ -1,4 +1,5 @@
 require './test/test_helper.rb'
+require './lib/game'
 
 class GameTest < Minitest::Test
 
@@ -13,8 +14,7 @@ class GameTest < Minitest::Test
     assert_equal instructions, game.start_sequence("i")
   end
 
-  def test_can_give_instrutions#why does it run start_sequence when I do this test
-    skip
+  def test_can_give_instrutions
     game = Game.new
     instructions = "You have two ships. You will be prompted to place your ships."
     assert_equal instructions, game.give_instructions
@@ -28,6 +28,7 @@ class GameTest < Minitest::Test
   end
 
   def test_can_find_random_square_to_start_placing_ships
+    skip
     start = game.find_random_start_square
     assert board.layout.include?(start)#may need to change based off configuration of layout
   end

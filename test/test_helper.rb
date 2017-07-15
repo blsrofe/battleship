@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/battleship'
 require 'minitest/autorun'
 require 'minitest/pride'
 require "minitest/emoji"
