@@ -38,7 +38,8 @@ class Game
 
   def computer_ship_placement(comp_board)
     unoccupied_square = find_unoccupied_start_square(comp_board)
-    place_computer_ship(unoccupied_square, comp_board)
+    place_computer_destroyer(unoccupied_square, comp_board)
+    # place_computer_sub()
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -50,15 +51,34 @@ class Game
     end
   end
 
-  def place_computer_ship(unoccupied_square, comp_board)
+  def place_computer_destroyer(unoccupied_square, comp_board)
     choice = ["horizontal", "vertical"].sample
     unoccupied_square.values[0].occupied = true
-    if choice = "horizontal"
-      place_ship_horizonally(unoccupied_square, comp_board)
+    if choice == "horizontal"
+      next_square, comp_board = place_ship_horizonally(unoccupied_square, comp_board)
+      next_square.values[0].occupied = true
+      comp_board
     else
-      place_ship_vertically(unoccupied_square, comp_board)
+      next_square, comp_board = place_ship_vertically(unoccupied_square, comp_board)
+      binding.pry
+      next_square.values[0].occupied = true
+      comp_board
     end
   end
+
+  # def place_computer_sub(unoccupied_square, comp_board)
+  #   choice = ["horizontal", "vertical"].sample
+  #   unoccupied_square.values[0].occupied = true
+  #   if choice = "horizontal"
+  #     next_square = place_ship_horizonally(unoccupied_square, comp_board)
+  #     next_square.values[0].occupied = true
+  #     next_square, choice
+  #   else
+  #     next_square = place_ship_vertically(unoccupied_square, comp_board)
+  #     next_square.values[0].occupied = true
+  #     next_square, choice
+  #   end
+  # end
 
   def place_ship_horizonally(unoccupied_square, comp_board)
     unoccupied_square_column = unoccupied_square.keys.join[1].to_i
@@ -69,17 +89,21 @@ class Game
     elsif comp_board.left_occupied?(unoccupied_square_name)
       new_key = go_right(unoccupied_square_column, unoccupied_square_row)
       new_square = comp_board.find_square(new_key)
+      return new_square, comp_board
     elsif comp_board.right_occupied?(unoccupied_square_name)
       new_key = go_left(unoccupied_square_column, unoccupied_square_row)
       new_square = comp_board.find_square(new_key)
+      return new_square, comp_board
     else
         choice = ["left", "right"].sample
-        if choice = "left"
+        if choice == "left"
           new_key = go_left(unoccupied_square_column, unoccupied_square_row)
           new_square = comp_board.find_square(new_key)
+          return new_square, comp_board
         else
           new_key = go_right(unoccupied_square_column, unoccupied_square_row)
           new_square = comp_board.find_square(new_key)
+          return new_square, comp_board
         end
     end
   end
