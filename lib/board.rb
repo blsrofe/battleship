@@ -18,4 +18,36 @@ class Board
     new_square
   end
 
+  def left_occupied?(key)
+    if key[1] == "1"
+      new_column = 1
+    else
+      new_column = key[1].to_i - 1
+    end
+    row = key[0]
+    new_key = row += new_column.to_s
+    new_square = find_square(new_key)
+    if key[1] == "1" || new_square.values[0].occupied == true
+      return true
+    else
+      false
+    end
+  end
+
+  def right_occupied?(key)
+    if key[1] == "4"
+      new_column = 4
+    else
+      new_column = key[1].to_i + 1
+    end
+    row = key[0]
+    new_key = row += new_column.to_s
+    new_square = find_square(new_key)
+    if key[1] == "4" || new_square.values[0].occupied == true
+      return true
+    else
+      false
+    end
+  end
+
 end

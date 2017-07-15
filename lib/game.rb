@@ -67,14 +67,21 @@ class Game
     choice = ["left", "right"].sample
     if unoccupied_square_column == 4
       new_key = go_left(unoccupied_square_column, unoccupied_square_row)
-      comp_board.find_square(new_key)
-
+      new_square = comp_board.find_square(new_key)
+      if new_square.values[0].occupied
+        
+      else
+        new_square.values[0].occupied = true
+      end
     elsif unoccupied_square_column == 1
-      go_right(unoccupied_square_column, unoccupied_square_row)
+      new_key = go_right(unoccupied_square_column, unoccupied_square_row)
+      comp_board.find_square(new_key)
     elsif choice == "left"
-      go_left(unoccupied_square_column, unoccupied_square_row)
+      new_key = go_left(unoccupied_square_column, unoccupied_square_row)
+      comp_board.find_square(new_key)
     elsif choice == "right"
-      go_right(unoccupied_square_column, unoccupied_square_row)
+      new_key = go_right(unoccupied_square_column, unoccupied_square_row)
+      comp_board.find_square(new_key)
     end
   end
 

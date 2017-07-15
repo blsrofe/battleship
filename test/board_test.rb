@@ -13,5 +13,16 @@ class BoardTest < Minitest::Test
     assert_equal square, board.find_square("C3")
   end
 
+  def test_it_can_tell_if_left_square_is_occupied#add more test cases after adding ships
+    board = Board.new
+    assert board.left_occupied?("A1")
+    refute board.left_occupied?("B2")
+  end
+
+  def test_it_can_tell_if_right_square_is_occupied
+    board = Board.new
+    assert board.right_occupied?("A4")
+    refute board.right_occupied?("B2")
+  end
 
 end
