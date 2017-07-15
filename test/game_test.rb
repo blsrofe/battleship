@@ -43,6 +43,24 @@ class GameTest < Minitest::Test
     assert unoccupied_square.values[0].occupied
   end
 
+  def test_can_find_name_of_key_to_the_left
+    game = Game.new
+    board = Board.new
+    unoccupied_square_row = "B"
+    unoccupied_square_column = 2
+    new_key = game.go_left(unoccupied_square_column, unoccupied_square_row)
+    assert_equal "B1", new_key
+  end
+
+  def test_can_find_name_of_key_to_the_right
+    game = Game.new
+    board = Board.new
+    unoccupied_square_row = "C"
+    unoccupied_square_column = 2
+    new_key = game.go_right(unoccupied_square_column, unoccupied_square_row)
+    assert_equal "C3", new_key
+  end
+
   def test_can_place_ships_horizontally
     skip
     game = Game.new

@@ -51,7 +51,6 @@ class Game
   end
 
   def place_computer_ship(unoccupied_square, comp_board)
-    binding.pry
     choice = ["horizontal", "vertical"].sample
     unoccupied_square.values[0].occupied = true
     # start_square_name = unoccupied_square.keys.join#returns string
@@ -69,7 +68,7 @@ class Game
     if unoccupied_square_column == 4
       new_key = go_left(unoccupied_square_column, unoccupied_square_row)
       comp_board.find_square(new_key)
-      
+
     elsif unoccupied_square_column == 1
       go_right(unoccupied_square_column, unoccupied_square_row)
     elsif choice == "left"
@@ -81,6 +80,12 @@ class Game
 
   def go_left(unoccupied_square_column, unoccupied_square_row)
     new_key_column = (unoccupied_square_column - 1).to_s
+    new_key = unoccupied_square_row += new_key_column
+    new_key
+  end
+
+  def go_right(unoccupied_square_column, unoccupied_square_row)
+    new_key_column = (unoccupied_square_column + 1).to_s
     new_key = unoccupied_square_row += new_key_column
     new_key
   end
