@@ -40,8 +40,9 @@ class Game
     unoccupied_square = find_unoccupied_start_square(comp_board)
     new_board = place_computer_destroyer(unoccupied_square, comp_board)
     unoccupied_square = find_unoccupied_start_square(new_board)
-    valid_sub_placement_identifier(unoccupied_square, new_board)
-    place_computer_sub(unoccupied_square, new_board)#pick horizontal or vertical based off of previous line
+    choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
+    final_setup_board = place_computer_sub(unoccupied_square, new_board, choice)
+    final_setup_board
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -55,17 +56,26 @@ class Game
 
   def valid_sub_placement_identifier(unoccupied_square, new_board)
     evalutate_vertical
-    evaluate_horizontal  
-    #need to make these methods and decide what to return below as well as tests for these methods
+    evaluate_horizontal
+    #need to make these methods as well as tests for these methods as well as go back and do go_vertical
     if evalutate_vertical == true && evaluate_horizontal == true
       choice = ["horizontal", "vertical"].sample
+      return choice, unoccupied_square
     elsif evalutate_vertical == true
       choice = "vertical"
+      return choice, unoccupied_square
     elsif evaluate_horizontal = true
       choice = "horizontal"
+      return choice, unoccupied_square
     else
       unoccupied_square = find_unoccupied_start_square(new_board)
       valid_sub_placement_identifier(unoccupied_square, new_board)
+  end
+
+  def evaluate_horizontal
+  end
+
+  def evalutate_vertical
   end
 
   def place_computer_destroyer(unoccupied_square, comp_board)
@@ -82,7 +92,7 @@ class Game
     end
   end
 
-  def place_computer_sub(unoccupied_square, comp_board)
+  def place_computer_sub(unoccupied_square, comp_board)#make sure this returns final_setup_board
     choice = ["horizontal", "vertical"].sample
     unoccupied_square.values[0].occupied = true
     if choice = "horizontal"
@@ -136,8 +146,56 @@ class Game
     new_key
   end
 
+  def go_up(unoccupied_square_column, unoccupied_square_row)
+    if unoccupied_square_row == "D"
+      new_key_row = "C"
+    elsif unoccupied_square_row == "C"
+      new_key_row = "B"
+    elsif unoccupied_square_row == "B"
+      new_key_row = "A"
+    end
+    new_key = new_key_row += unoccupied_square_column.to_s
+    new_key
+  end
+
+  def go_down(unoccupied_square_column, unoccupied_square_row)
+    if unoccupied_square_row == "A"
+      new_key_row = "B"
+    elsif unoccupied_square_row == "B"
+      new_key_row = "C"
+    elsif unoccupied_square_row == "C"
+      new_key_row = "D"
+    end
+    new_key = new_key_row += unoccupied_square_column.to_s
+    new_key
+  end
+
   def place_ship_vertically(unoccupied_square, comp_board)
-    puts "put ship vertical"
+    unoccupied_square_column = unoccupied_square.keys.join[1].to_i
+    unoccupied_square_row = unoccupied_square.keys.join[0]
+    unoccupied_square_name = unoccupied_square.keys.join
+    if comp_board.up_occupied?(unoccupied_square_name) && comp_board.down_occupied?(unoccupied_square_name)
+      place_ship_horizonally(unoccupied_square, comp_board)
+    elsif comp_board.down_occupied?(unoccupied_square_name)
+      new_key = go_up(unoccupied_square_column, unoccupied_square_row)
+      new_square = comp_board.find_square(new_key)
+      return new_square, comp_board
+    elsif comp_board.up_occupied?(unoccupied_square_name)
+      new_key = go_down(unoccupied_square_column, unoccupied_square_row)
+      new_square = comp_board.find_square(new_key)
+      return new_square, comp_board
+    else
+        choice = ["up", "down"].sample
+        if choice == "up"
+          new_key = go_up(unoccupied_square_column, unoccupied_square_row)
+          new_square = comp_board.find_square(new_key)
+          return new_square, comp_board
+        else
+          new_key = go_down(unoccupied_square_column, unoccupied_square_row)
+          new_square = comp_board.find_square(new_key)
+          return new_square, comp_board
+        end
+    end
   end
 
 end
