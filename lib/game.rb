@@ -38,10 +38,15 @@ class Game
 
   def computer_ship_placement(comp_board)
     random_square = find_random_start_square(comp_board)
+    check_square = check_if_square_is_empty(random_square)
   end
 
   def find_random_start_square(comp_board)
     comp_board.layout.sample#returns one hash from layout
+  end
+
+  def check_if_square_is_empty(random_square)
+    random_square.value
   end
 
 end
