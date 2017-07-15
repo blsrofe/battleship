@@ -30,7 +30,7 @@ class GameTest < Minitest::Test
   def test_can_find_random_square_to_start_placing_ships
     skip
     start = game.find_random_start_square
-    assert board.layout.include?(start)#may need to change based off configuration of layout
+    assert board.layout.any? {|square| square.keys == [start]} #this works if start returns a string, might have to convert start to string before doing this
   end
 
 end
