@@ -28,9 +28,11 @@ class GameTest < Minitest::Test
   end
 
   def test_can_find_random_square_to_start_placing_ships
-    skip
-    start = game.find_random_start_square
-    assert board.layout.any? {|square| square.keys == [start]} #this works if start returns a string, might have to convert start to string before doing this
+    game = Game.new
+    square = game.find_random_start_square(Board.new)
+    name = square.keys
+    board = Board.new
+    assert board.layout.any? {|square| square.keys == name} 
   end
 
 end

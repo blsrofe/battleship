@@ -14,7 +14,8 @@ class Game
 
   def start_sequence(choice)
     if choice == "p" || choice == "play"
-      computer_ship_placement
+      comp_board = Board.new
+      computer_ship_placement(comp_board)
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -35,12 +36,12 @@ class Game
     "You have two ships. You will be prompted to place your ships."
   end
 
-  def computer_ship_placement
-    find_random_start_square
+  def computer_ship_placement(comp_board)
+    random_square = find_random_start_square(comp_board)
   end
 
-  def find_random_start_square
-    #.sample will pick one random element from an array
+  def find_random_start_square(comp_board)
+    comp_board.layout.sample#returns one hash from layout
   end
 
 end
