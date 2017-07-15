@@ -38,8 +38,10 @@ class Game
 
   def computer_ship_placement(comp_board)
     unoccupied_square = find_unoccupied_start_square(comp_board)
-    place_computer_destroyer(unoccupied_square, comp_board)
-    # place_computer_sub()
+    new_board = place_computer_destroyer(unoccupied_square, comp_board)
+    unoccupied_square = find_unoccupied_start_square(new_board)
+    valid_sub_placement_identifier(unoccupied_square, new_board)
+    place_computer_sub(unoccupied_square, new_board)#pick horizontal or vertical based off of previous line
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -51,6 +53,21 @@ class Game
     end
   end
 
+  def valid_sub_placement_identifier(unoccupied_square, new_board)
+    evalutate_vertical
+    evaluate_horizontal  
+    #need to make these methods and decide what to return below as well as tests for these methods
+    if evalutate_vertical == true && evaluate_horizontal == true
+      choice = ["horizontal", "vertical"].sample
+    elsif evalutate_vertical == true
+      choice = "vertical"
+    elsif evaluate_horizontal = true
+      choice = "horizontal"
+    else
+      unoccupied_square = find_unoccupied_start_square(new_board)
+      valid_sub_placement_identifier(unoccupied_square, new_board)
+  end
+
   def place_computer_destroyer(unoccupied_square, comp_board)
     choice = ["horizontal", "vertical"].sample
     unoccupied_square.values[0].occupied = true
@@ -60,25 +77,24 @@ class Game
       comp_board
     else
       next_square, comp_board = place_ship_vertically(unoccupied_square, comp_board)
-      binding.pry
       next_square.values[0].occupied = true
       comp_board
     end
   end
 
-  # def place_computer_sub(unoccupied_square, comp_board)
-  #   choice = ["horizontal", "vertical"].sample
-  #   unoccupied_square.values[0].occupied = true
-  #   if choice = "horizontal"
-  #     next_square = place_ship_horizonally(unoccupied_square, comp_board)
-  #     next_square.values[0].occupied = true
-  #     next_square, choice
-  #   else
-  #     next_square = place_ship_vertically(unoccupied_square, comp_board)
-  #     next_square.values[0].occupied = true
-  #     next_square, choice
-  #   end
-  # end
+  def place_computer_sub(unoccupied_square, comp_board)
+    choice = ["horizontal", "vertical"].sample
+    unoccupied_square.values[0].occupied = true
+    if choice = "horizontal"
+      next_square = place_ship_horizonally(unoccupied_square, comp_board)
+      next_square.values[0].occupied = true
+      third_square = place_ship_horizonally(next_square, comp_board)
+    else
+      next_square = place_ship_vertically(unoccupied_square, comp_board)
+      next_square.values[0].occupied = true
+      next_square, choice
+    end
+  end
 
   def place_ship_horizonally(unoccupied_square, comp_board)
     unoccupied_square_column = unoccupied_square.keys.join[1].to_i
