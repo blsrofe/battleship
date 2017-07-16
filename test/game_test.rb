@@ -73,4 +73,7 @@ class GameTest < Minitest::Test
     assert_equal board.layout[2], left_square
   end
 
+  #test go_up and go_down
+  #test up occupies and down occupied in board
+
 end

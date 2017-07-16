@@ -50,4 +50,48 @@ class Board
     end
   end
 
+  def up_occupied?(key)
+    if key[0] == "A"
+      new_row = "A"
+    else
+      if key[0] == "B"
+        new_row = "A"
+      elsif key[0] == "C"
+        new_row = "B"
+      elsif unoccupied_square_row == "D"
+        new_row = "C"
+      end
+    end
+    column = key[1]
+    new_key = new_row += column
+    new_square = find_square(new_key)
+    if key[0] == "A" || new_square.values[0].occupied == true
+      return true
+    else
+      false
+    end
+  end
+
+  def down_occupied?(key)
+    if key[0] == "D"
+      new_row = "D"
+    else
+      if key[0] == "C"
+        new_row = "D"
+      elsif key[0] == "B"
+        new_row = "C"
+      elsif unoccupied_square_row == "A"
+        new_row = "B"
+      end
+    end
+    column = key[1]
+    new_key = new_row += column
+    new_square = find_square(new_key)
+    if key[0] == "D" || new_square.values[0].occupied == true
+      return true
+    else
+      false
+    end
+  end
+
 end
