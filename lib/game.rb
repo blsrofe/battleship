@@ -174,13 +174,13 @@ class Game
     unoccupied_square_column = unoccupied_square.keys.join[1].to_i
     unoccupied_square_row = unoccupied_square.keys.join[0]
     unoccupied_square_name = unoccupied_square.keys.join
-    if comp_board.up_occupied?(unoccupied_square_name) && comp_board.down_occupied?(unoccupied_square_name)
+    if comp_board.above_occupied?(unoccupied_square_name) && comp_board.below_occupied?(unoccupied_square_name)
       place_ship_horizonally(unoccupied_square, comp_board)
-    elsif comp_board.down_occupied?(unoccupied_square_name)
+    elsif comp_board.below_occupied?(unoccupied_square_name)
       new_key = go_up(unoccupied_square_column, unoccupied_square_row)
       new_square = comp_board.find_square(new_key)
       return new_square, comp_board
-    elsif comp_board.up_occupied?(unoccupied_square_name)
+    elsif comp_board.above_occupied?(unoccupied_square_name)
       new_key = go_down(unoccupied_square_column, unoccupied_square_row)
       new_square = comp_board.find_square(new_key)
       return new_square, comp_board

@@ -50,7 +50,7 @@ class Board
     end
   end
 
-  def up_occupied?(key)
+  def above_occupied?(key)
     if key[0] == "A"
       new_row = "A"
     else
@@ -72,7 +72,7 @@ class Board
     end
   end
 
-  def down_occupied?(key)
+  def below_occupied?(key)
     if key[0] == "D"
       new_row = "D"
     else
@@ -80,7 +80,7 @@ class Board
         new_row = "D"
       elsif key[0] == "B"
         new_row = "C"
-      elsif unoccupied_square_row == "A"
+      elsif key[0] == "A"
         new_row = "B"
       end
     end

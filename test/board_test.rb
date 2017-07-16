@@ -25,4 +25,16 @@ class BoardTest < Minitest::Test
     refute board.right_occupied?("B2")
   end
 
+  def test_it_can_tell_if_square_above_is_occupied
+    board = Board.new
+    assert board.above_occupied?("A3")
+    refute board.above_occupied?("C2")
+  end
+
+  def test_it_can_tell_if_square_below_is_occupied
+    board = Board.new
+    assert board.below_occupied?("D1")
+    refute board.below_occupied?("A2")
+  end
+
 end
