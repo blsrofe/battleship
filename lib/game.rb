@@ -53,12 +53,21 @@ class Game
     coord = display_player_message
     des_coords = evaluate_coordinates(coord)
     split_coord_collection = des_coords.split(" ")
-    new_board, destroyer = place_player_destroyer(split_coord_collection[0], board)
+    new_board, destroyer_p = place_player_destroyer(split_coord_collection, board)
   end
 
   def evaluate_coordinates(coord)
     #make sure to return coordinates in correct form upcase
     coord
+  end
+
+  def place_player_destroyer(coord_collection, board)
+    coord_collection.each do |coord|
+      square = board.find_square(coord)
+      square.values[0].occupied = true
+    end
+    destroyer_p = Ship.new(start_square, second_square)
+    return board, destroyer_p
   end
 
   def find_unoccupied_start_square(comp_board)
