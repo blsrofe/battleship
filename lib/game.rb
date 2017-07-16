@@ -64,12 +64,13 @@ class Game
     elsif evalutate_vertical == true
       choice = "vertical"
       return choice, unoccupied_square
-    elsif evaluate_horizontal = true
+    elsif evaluate_horizontal == true
       choice = "horizontal"
       return choice, unoccupied_square
     else
       unoccupied_square = find_unoccupied_start_square(new_board)
       valid_sub_placement_identifier(unoccupied_square, new_board)
+    end
   end
 
   def evaluate_horizontal
@@ -95,14 +96,14 @@ class Game
   def place_computer_sub(unoccupied_square, comp_board)#make sure this returns final_setup_board
     choice = ["horizontal", "vertical"].sample
     unoccupied_square.values[0].occupied = true
-    if choice = "horizontal"
+    if choice == "horizontal"
       next_square = place_ship_horizonally(unoccupied_square, comp_board)
       next_square.values[0].occupied = true
       third_square = place_ship_horizonally(next_square, comp_board)
     else
       next_square = place_ship_vertically(unoccupied_square, comp_board)
       next_square.values[0].occupied = true
-      next_square, choice
+      return next_square, choice
     end
   end
 

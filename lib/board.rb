@@ -58,7 +58,7 @@ class Board
         new_row = "A"
       elsif key[0] == "C"
         new_row = "B"
-      elsif unoccupied_square_row == "D"
+      elsif key[0] == "D"
         new_row = "C"
       end
     end
