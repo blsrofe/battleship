@@ -74,6 +74,18 @@ class GameTest < Minitest::Test
     assert_equal board.layout[2], left_square
   end
 
+  def test_can_place_ships_vertically
+
+    game = Game.new
+    board = Board.new
+    unoccupied_square = board.layout[0]
+    below_square, board = game.place_ship_vertically(unoccupied_square, board)
+    assert_equal board.layout[4], below_square
+    unoccupied_square = board.layout[13]
+    above_square, board = game.place_ship_vertically(unoccupied_square, board)
+    assert_equal board.layout[9], above_square
+  end
+
   def test_can_find_name_of_key_above
     game = Game.new
     board = Board.new
