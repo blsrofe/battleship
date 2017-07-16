@@ -55,9 +55,8 @@ class Game
   end
 
   def valid_sub_placement_identifier(unoccupied_square, new_board)
-    evalutate_vertical
-    evaluate_horizontal
-    #need to make these methods as well as tests for these methods as well as go back and do go_vertical
+    evalutate_vertical(unoccupied_square, new_board)
+    evaluate_horizontal(unoccupied_square, new_board)
     if evalutate_vertical == true && evaluate_horizontal == true
       choice = ["horizontal", "vertical"].sample
       return choice, unoccupied_square
@@ -73,10 +72,10 @@ class Game
     end
   end
 
-  def evaluate_horizontal
+  def evaluate_horizontal(unoccupied_square, new_board)
   end
 
-  def evalutate_vertical
+  def evalutate_vertical(unoccupied_square, new_board)
   end
 
   def place_computer_destroyer(unoccupied_square, comp_board)

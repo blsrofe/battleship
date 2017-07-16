@@ -91,4 +91,28 @@ class GameTest < Minitest::Test
     assert_equal "C2", new_key
   end
 
+  def test_knows_if_horizontal_sub_will_fit_on_board
+    comp_board = Board.new
+    first_square_destroyer = comp_board.layout[5]#B2
+    first_square_destroyer.values[0].occupied = true
+    second_square_destroyer = comp_board.layout[9]#C2
+    second_square_destroyer.values[0].occupied = true
+    unoccupied_square = comp_board.layout[10]
+    refute evaluate_horizontal(unoccupied_square, comp_board)
+    unoccupied_square = comp_board.layout[1]
+    assert evaluate_horizontal(unoccupied_square, comp_board)
+  end
+
+  def test_knows_if_vertical_sub_will_fit_on_board
+    comp_board = Board.new
+    first_square_destroyer = comp_board.layout[5]#B2
+    first_square_destroyer.values[0].occupied = true
+    second_square_destroyer = comp_board.layout[6]#B3
+    second_square_destroyer.values[0].occupied = true
+    unoccupied_square = comp_board.layout[10]
+    refute evaluate_vertical(unoccupied_square, comp_board)
+    unoccupied_square = comp_board.layout[0]
+    assert evaluate_horizontal(unoccupied_square, comp_board)
+  end
+
 end
