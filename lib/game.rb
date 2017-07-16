@@ -17,8 +17,10 @@ class Game
 
   def start_sequence(choice)
     if choice == "p" || choice == "play"
-      Board.new
-      computer_ship_placement(comp_board)
+      board = Board.new
+      comp_board, comp_destroyer, comp_sub = computer_ship_placement(board)
+      display_player_message
+      # player_board, player_destroyer, player_sub = player_ship_placement(board)
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -39,13 +41,18 @@ class Game
     "You have two ships. You will be prompted to place your ships."
   end
 
-  def computer_ship_placement(comp_board)
-    unoccupied_square = find_unoccupied_start_square(comp_board)
-    new_board, destroyer = place_computer_destroyer(unoccupied_square, comp_board)
+  def computer_ship_placement(board)
+    unoccupied_square = find_unoccupied_start_square(board)
+    new_board, destroyer = place_computer_destroyer(unoccupied_square, board)
     unoccupied_square = find_unoccupied_start_square(new_board)
     choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
     final_setup_board, submarine = place_computer_sub(unoccupied_square, new_board, choice)
     return final_setup_board, destroyer, submarine
+  end
+
+  def player_ship_placement(board)
+    unoccupied_square = find_unoccupied_start_square(board)
+    new_board, destroyer = place_player_destroyer(unoccupied_square, board)
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -55,6 +62,16 @@ class Game
     else
       find_unoccupied_start_square(comp_board)
     end
+  end
+
+  def display_player_message
+    puts "I have laid out my ships on the grid.
+    You now need to layout your two ships.
+    The first is two units long and the
+    second is three units long.
+    The grid has A1 at the top left and D4 at the bottom right.
+
+    Enter the squares for the two-unit ship:"
   end
 
   def valid_sub_placement_identifier(unoccupied_square, new_board)
@@ -138,18 +155,18 @@ class Game
     unoccupied_square.values[0].occupied = true
     submarine = Ship.new(unoccupied_square.keys.join)
     if choice == "horizontal"
-      next_square = place_ship_horizonally(unoccupied_square, comp_board)
+      next_square = place_ship_horizonally(unoccupied_square, comp_board)[0]
       next_square.values[0].occupied = true
       submarine.second_square = next_square.keys.join
-      third_square = place_ship_horizonally(next_square, comp_board)
+      third_square = place_ship_horizonally(next_square, comp_board)[0]
       third_square.values[0].occupied = true
       submarine.third_square = third_square.keys.join
       return comp_board, submarine
     else
-      next_square = place_ship_vertically(unoccupied_square, comp_board)
+      next_square = place_ship_vertically(unoccupied_square, comp_board)[0]
       next_square.values[0].occupied = true
       submarine.second_square = next_square.keys.join
-      third_square = place_ship_vertically(next_square, comp_board)
+      third_square = place_ship_vertically(next_square, comp_board)[0]
       third_square.values[0].occupied = true
       submarine.third_square = third_square.keys.join
       return comp_board, submarine

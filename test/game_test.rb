@@ -20,14 +20,6 @@ class GameTest < Minitest::Test
     assert_equal instructions, game.give_instructions
   end
 
-  def test_computer_can_place_ships
-    skip
-    game = Game.new
-    board = Board.new
-
-    assert_equal #, game.computer_ship_placement(board)
-  end
-
   def test_can_find_unoccupied_square_to_place_ships
     game = Game.new
     board = Board.new
@@ -42,6 +34,28 @@ class GameTest < Minitest::Test
     refute unoccupied_square.values[0].occupied
     game.place_computer_destroyer(unoccupied_square, board)
     assert unoccupied_square.values[0].occupied
+  end
+
+  def test_can_place_computer_sub_ship_vertically
+    game = Game.new
+    board = Board.new
+    unoccupied_square = board.layout[0]
+    refute unoccupied_square.values[0].occupied
+    game.place_computer_sub(unoccupied_square, board, "vertical")
+    assert unoccupied_square.values[0].occupied
+    assert board.layout[4].values[0].occupied
+    assert board.layout[8].values[0].occupied
+  end
+
+  def test_can_place_computer_sub_ship_horizontally
+    game = Game.new
+    board = Board.new
+    unoccupied_square = board.layout[0]
+    refute unoccupied_square.values[0].occupied
+    game.place_computer_sub(unoccupied_square, board, "horizontal")
+    assert unoccupied_square.values[0].occupied
+    assert board.layout[1].values[0].occupied
+    assert board.layout[2].values[0].occupied
   end
 
   def test_can_find_name_of_key_to_the_left
