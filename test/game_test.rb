@@ -24,11 +24,11 @@ class GameTest < Minitest::Test
     skip
     game = Game.new
     board = Board.new
-  
+
     assert_equal #, game.computer_ship_placement(board)
   end
 
-  def test_can_find_unoccupied_square_to_place_ships#add to this test later after you have added method to place ships
+  def test_can_find_unoccupied_square_to_place_ships
     game = Game.new
     board = Board.new
     name = game.find_unoccupied_start_square(board)
@@ -93,31 +93,33 @@ class GameTest < Minitest::Test
   end
 
   def test_knows_if_horizontal_sub_will_fit_on_board
-    skip
+
     game = Game.new
     comp_board = Board.new
     first_square_destroyer = comp_board.layout[5]#B2
     first_square_destroyer.values[0].occupied = true
     second_square_destroyer = comp_board.layout[9]#C2
     second_square_destroyer.values[0].occupied = true
-    unoccupied_square = comp_board.layout[10]
+    unoccupied_square = comp_board.layout[10]#C3 hash
     refute game.evaluate_horizontal?(unoccupied_square, comp_board)
-    unoccupied_square = comp_board.layout[1]#why is this coming up as the correct score here but not when I put a pry in the method
-    assert game.evaluate_horizontal?(unoccupied_square, comp_board)
+    new_unoccupied_square = comp_board.layout[1]
+    assert game.evaluate_horizontal?(new_unoccupied_square, comp_board)
   end
 
   def test_knows_if_vertical_sub_will_fit_on_board
-    skip
+
     game = Game.new
-    comp_board = Board.new #does not like shovel or plus minus
+    comp_board = Board.new
     first_square_destroyer = comp_board.layout[5]#B2
     first_square_destroyer.values[0].occupied = true
     second_square_destroyer = comp_board.layout[6]#B3
     second_square_destroyer.values[0].occupied = true
-    unoccupied_square = comp_board.layout[10]
+    unoccupied_square = comp_board.layout[9]#B4 hash
     refute game.evaluate_vertical?(unoccupied_square, comp_board)
-    unoccupied_square = comp_board.layout[0]
-    assert game.evaluate_vertical?(unoccupied_square, comp_board)
+    new_unoccupied_square = comp_board.layout[7]
+    assert game.evaluate_vertical?(new_unoccupied_square, comp_board)
   end
+
+
 
 end

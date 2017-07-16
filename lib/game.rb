@@ -1,4 +1,5 @@
 require './lib/board'
+require 'pry'
 class Game
 
   def initialize
@@ -43,7 +44,6 @@ class Game
     choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
     final_setup_board = place_computer_sub(unoccupied_square, new_board, choice)
     final_setup_board
-    "Your opponent has placed their ships. Now you need to place your ships."
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -54,7 +54,7 @@ class Game
       find_unoccupied_start_square(comp_board)
     end
   end
-  
+
   def valid_sub_placement_identifier(unoccupied_square, new_board)
     vertical = evaluate_vertical?(unoccupied_square, new_board)
     horizontal = evaluate_horizontal?(unoccupied_square, new_board)
@@ -85,9 +85,9 @@ class Game
     look_two_squares_left = new_board.left_occupied?(left_square)
     if look_left_square && look_right_square
       false
-    elsif look_two_squares_left
+    elsif look_left_square && look_two_squares_right
       false
-    elsif look_two_squares_right
+    elsif look_right_square && look_two_squares_left
       false
     else
       true
@@ -100,15 +100,15 @@ class Game
     look_below_square = new_board.below_occupied?(unoccupied_square_name)
     unoccupied_square_column = unoccupied_square.keys.join[1].to_i
     unoccupied_square_row = unoccupied_square.keys.join[0]
-    above_square = go_up(unoccupied_square_column, unoccupied_square_row)
     below_square = go_down(unoccupied_square_column, unoccupied_square_row)
-    look_two_squares_up = new_board.above_occupied?(above_square)
-    look_two_squares_down = new_board.below_occupied?(below_square)
-    if look_above_square && look_below_square
+    above_square = go_up(unoccupied_square_column, unoccupied_square_row)
+    look_two_squares_above = new_board.above_occupied?(above_square)
+    look_two_squares_below = new_board.below_occupied?(below_square)
+    if look_below_square && look_above_square
       false
-    elsif look_two_squares_up
+    elsif look_below_square && look_two_squares_above
       false
-    elsif look_two_squares_down
+    elsif look_above_square && look_two_squares_below
       false
     else
       true
