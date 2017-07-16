@@ -43,6 +43,7 @@ class Game
     choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
     final_setup_board = place_computer_sub(unoccupied_square, new_board, choice)
     final_setup_board
+    "Your opponent has placed their ships. Now you need to place your ships."
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -53,17 +54,17 @@ class Game
       find_unoccupied_start_square(comp_board)
     end
   end
-
+  
   def valid_sub_placement_identifier(unoccupied_square, new_board)
-    evalutate_vertical(unoccupied_square, new_board)
-    evaluate_horizontal(unoccupied_square, new_board)
-    if evalutate_vertical == true && evaluate_horizontal == true
+    vertical = evaluate_vertical?(unoccupied_square, new_board)
+    horizontal = evaluate_horizontal?(unoccupied_square, new_board)
+    if vertical == true && horizontal == true
       choice = ["horizontal", "vertical"].sample
       return choice, unoccupied_square
-    elsif evalutate_vertical == true
+    elsif vertical == true
       choice = "vertical"
       return choice, unoccupied_square
-    elsif evaluate_horizontal == true
+    elsif horizontal == true
       choice = "horizontal"
       return choice, unoccupied_square
     else
@@ -72,10 +73,46 @@ class Game
     end
   end
 
-  def evaluate_horizontal(unoccupied_square, new_board)
+  def evaluate_horizontal?(unoccupied_square, new_board)
+    unoccupied_square_name = unoccupied_square.keys.join
+    look_right_square = new_board.right_occupied?(unoccupied_square_name)
+    look_left_square = new_board.left_occupied?(unoccupied_square_name)
+    unoccupied_square_column = unoccupied_square.keys.join[1].to_i
+    unoccupied_square_row = unoccupied_square.keys.join[0]
+    left_square = go_left(unoccupied_square_column, unoccupied_square_row)
+    right_square = go_right(unoccupied_square_column, unoccupied_square_row)
+    look_two_squares_right = new_board.right_occupied?(right_square)
+    look_two_squares_left = new_board.left_occupied?(left_square)
+    if look_left_square && look_right_square
+      false
+    elsif look_two_squares_left
+      false
+    elsif look_two_squares_right
+      false
+    else
+      true
+    end
   end
 
-  def evalutate_vertical(unoccupied_square, new_board)
+  def evaluate_vertical?(unoccupied_square, new_board)
+    unoccupied_square_name = unoccupied_square.keys.join
+    look_above_square = new_board.above_occupied?(unoccupied_square_name)
+    look_below_square = new_board.below_occupied?(unoccupied_square_name)
+    unoccupied_square_column = unoccupied_square.keys.join[1].to_i
+    unoccupied_square_row = unoccupied_square.keys.join[0]
+    above_square = go_up(unoccupied_square_column, unoccupied_square_row)
+    below_square = go_down(unoccupied_square_column, unoccupied_square_row)
+    look_two_squares_up = new_board.above_occupied?(above_square)
+    look_two_squares_down = new_board.below_occupied?(below_square)
+    if look_above_square && look_below_square
+      false
+    elsif look_two_squares_up
+      false
+    elsif look_two_squares_down
+      false
+    else
+      true
+    end
   end
 
   def place_computer_destroyer(unoccupied_square, comp_board)
@@ -92,17 +129,20 @@ class Game
     end
   end
 
-  def place_computer_sub(unoccupied_square, comp_board)#make sure this returns final_setup_board
-    choice = ["horizontal", "vertical"].sample
+  def place_computer_sub(unoccupied_square, comp_board, choice)
     unoccupied_square.values[0].occupied = true
     if choice == "horizontal"
       next_square = place_ship_horizonally(unoccupied_square, comp_board)
       next_square.values[0].occupied = true
       third_square = place_ship_horizonally(next_square, comp_board)
+      third_square.values[0].occupied = true
+      comp_board
     else
       next_square = place_ship_vertically(unoccupied_square, comp_board)
       next_square.values[0].occupied = true
-      return next_square, choice
+      third_square = place_ship_vertically(next_square, comp_board)
+      third_square.values[0].occupied = true
+      comp_board
     end
   end
 
@@ -154,7 +194,7 @@ class Game
     elsif unoccupied_square_row == "B"
       new_key_row = "A"
     end
-    new_key = new_key_row += unoccupied_square_column.to_s
+    new_key = new_key_row << unoccupied_square_column.to_s
     new_key
   end
 
@@ -166,7 +206,7 @@ class Game
     elsif unoccupied_square_row == "C"
       new_key_row = "D"
     end
-    new_key = new_key_row += unoccupied_square_column.to_s
+    new_key = new_key_row << unoccupied_square_column.to_s
     new_key
   end
 
