@@ -65,7 +65,7 @@ class Game
   end
 
   def display_player_message
-    puts "I have laid out my ships on the grid.
+    puts "    I have laid out my ships on the grid.
     You now need to layout your two ships.
     The first is two units long and the
     second is three units long.
@@ -221,7 +221,7 @@ class Game
     elsif unoccupied_square_row == "B"
       new_key_row = "A"
     end
-    new_key = new_key_row << unoccupied_square_column.to_s
+    new_key = new_key_row += unoccupied_square_column.to_s
     new_key
   end
 
@@ -233,7 +233,7 @@ class Game
     elsif unoccupied_square_row == "C"
       new_key_row = "D"
     end
-    new_key = new_key_row << unoccupied_square_column.to_s
+    new_key = new_key_row += unoccupied_square_column.to_s
     new_key
   end
 

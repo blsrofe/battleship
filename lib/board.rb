@@ -2,7 +2,7 @@ require './lib/square'
 
 class Board
 
-  attr_reader :layout
+  attr_accessor :layout
 
   def initialize
     @layout = [{"A1" => Square.new}, {"A2" => Square.new}, {"A3" => Square.new}, {"A4" => Square.new},
@@ -27,6 +27,7 @@ class Board
     row = key[0]
     new_key = row += new_column.to_s
     new_square = find_square(new_key)
+    binding.pry
     if key[1] == "1" || new_square.values[0].occupied == true
       return true
     else
