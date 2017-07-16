@@ -19,8 +19,7 @@ class Game
     if choice == "p" || choice == "play"
       board = Board.new
       comp_board, comp_destroyer, comp_sub = computer_ship_placement(board)
-      display_player_message
-      # player_board, player_destroyer, player_sub = player_ship_placement(board)
+      player_board, player_destroyer, player_sub = player_ship_placement(board)
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -51,8 +50,15 @@ class Game
   end
 
   def player_ship_placement(board)
-    unoccupied_square = find_unoccupied_start_square(board)
-    new_board, destroyer = place_player_destroyer(unoccupied_square, board)
+    coord = display_player_message
+    des_coords = evaluate_coordinates(coord)
+    split_coord_collection = des_coords.split(" ")
+    new_board, destroyer = place_player_destroyer(split_coord_collection[0], board)
+  end
+
+  def evaluate_coordinates(coord)
+    #make sure to return coordinates in correct form upcase
+    coord
   end
 
   def find_unoccupied_start_square(comp_board)
@@ -72,6 +78,8 @@ class Game
     The grid has A1 at the top left and D4 at the bottom right.
 
     Enter the squares for the two-unit ship:"
+    des_coord = gets.chomp
+    des_coord
   end
 
   def valid_sub_placement_identifier(unoccupied_square, new_board)

@@ -27,7 +27,6 @@ class Board
     row = key[0]
     new_key = row += new_column.to_s
     new_square = find_square(new_key)
-    binding.pry
     if key[1] == "1" || new_square.values[0].occupied == true
       return true
     else
