@@ -239,17 +239,17 @@ class Game
   #   end
   # end
   #
-  def go_left(unoccupied_square_column, unoccupied_square_row)
-    new_key_column = (unoccupied_square_column - 1).to_s
-    new_key = unoccupied_square_row += new_key_column
-    new_key
-  end
-
-  def go_right(unoccupied_square_column, unoccupied_square_row)
-    new_key_column = (unoccupied_square_column + 1).to_s
-    new_key = unoccupied_square_row += new_key_column
-    new_key
-  end
+  # def go_left(unoccupied_square_column, unoccupied_square_row)
+  #   new_key_column = (unoccupied_square_column - 1).to_s
+  #   new_key = unoccupied_square_row += new_key_column
+  #   new_key
+  # end
+  #
+  # def go_right(unoccupied_square_column, unoccupied_square_row)
+  #   new_key_column = (unoccupied_square_column + 1).to_s
+  #   new_key = unoccupied_square_row += new_key_column
+  #   new_key
+  # end
 
   def go_up(unoccupied_square_column, unoccupied_square_row)
     if unoccupied_square_row == "D"

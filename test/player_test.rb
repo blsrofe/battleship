@@ -1,5 +1,6 @@
 require './test/test_helper.rb'
 require './lib/player'
+require './lib/board'
 
 class PlayerTest < Minitest::Test
 
@@ -24,23 +25,39 @@ class PlayerTest < Minitest::Test
 
   def test_can_place_ships_horizontally
     player = Player.new
-    empty_square = @board.layout[0]
+    empty_square = player.board.layout[0]
     right_square = player.place_ship_horizonally(empty_square)
-    assert_equal @board.layout[1], right_square
-    empty_square = @board.layout[3]
+    assert_equal player.board.layout[1], right_square
+    empty_square = player.board.layout[3]
     left_square = player.place_ship_horizonally(empty_square)
-    assert_equal @board.layout[2], left_square
+    assert_equal player.board.layout[2], left_square
   end
 
   def test_can_place_ships_vertically
+    skip
     player = Player.new
-    empty_square = @board.layout[0]
+    empty_square = player.board.layout[0]
     below_square = player.place_ship_vertically(empty_square)
-    assert_equal @board.layout[4], below_square
-    empty_square = @board.layout[13]
+    assert_equal player.board.layout[4], below_square
+    empty_square = player.board.layout[13]
     above_square = player.place_ship_vertically(empty_square)
-    assert_equal @board.layout[9], above_square
+    assert_equal player.board.layout[9], above_square
   end
 
+  def test_can_find_key_to_the_left
+    player = Player.new
+    empty_square_row = "B"
+    empty_square_column = 2
+    new_square = player.go_left(empty_square_column, empty_square_row)
+    assert_equal "B1", new_square.keys.join
+  end
+
+  def test_can_find_key_to_the_right
+    player = Player.new
+    empty_square_row = "C"
+    empty_square_column = 2
+    new_square = player.go_right(empty_square_column, empty_square_row)
+    assert_equal "C3", new_square.keys.join
+  end
 
 end

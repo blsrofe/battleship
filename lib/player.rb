@@ -50,23 +50,19 @@ class Player
     if @board.left_occupied?(empty_square_name) && @board.right_occupied?(empty_square_name)
       place_ship_vertically(empty_square)
     elsif @board.left_occupied?(empty_square_name)
-      new_key = go_right(empty_square_column, empty_square_row)
-      new_square = @board.find_square(new_key)
-      return new_square
+      new_square = go_right(empty_square_column, empty_square_row)
+      new_square
     elsif @board.right_occupied?(empty_square_name)
-      new_key = go_left(empty_square_column, empty_square_row)
-      new_square = @board.find_square(new_key)
-      return new_square
+      new_square = go_left(empty_square_column, empty_square_row)
+      new_square
     else
         choice = ["left", "right"].sample
         if choice == "left"
-          new_key = go_left(empty_square_column, empty_square_row)
-          new_square = @board.find_square(new_key)
-          return new_square
+          new_square = go_left(empty_square_column, empty_square_row)
+          new_square
         else
-          new_key = go_right(empty_square_column, empty_square_row)
-          new_square = @board.find_square(new_key)
-          return new_square
+          new_square = go_right(empty_square_column, empty_square_row)
+          new_square
         end
     end
   end
@@ -78,25 +74,46 @@ class Player
     if @board.above_occupied?(empty_square_name) && @board.below_occupied?(empty_square_name)
       place_ship_horizonally(empty_square)
     elsif @board.below_occupied?(empty_square_name)
-      new_key = go_up(empty_square_column, empty_square_row)
-      new_square = @board.find_square(new_key)
-      return new_square
+      new_square = up(empty_square_column, empty_square_row)
+      new_square
     elsif @board.above_occupied?(empty_square_name)
-      new_key = go_down(empty_square_column, empty_square_row)
-      new_square = @board.find_square(new_key)
-      return new_square
+      new_square = down(empty_square_column, empty_square_row)
+      new_square
     else
         choice = ["up", "down"].sample
         if choice == "up"
-          new_key = go_up(empty_square_column, empty_square_row)
-          new_square = @board.find_square(new_key)
-          return new_square
+          new_square = up(empty_square_column, empty_square_row)
+          new_square
         else
-          new_key = go_down(empty_square_column, empty_square_row)
-          new_square = @board.find_square(new_key)
-          return new_square
+          new_square = down(empty_square_column, empty_square_row)
+          new_square
         end
     end
   end
 
+  def up(empty_square_column, empty_square_row)#test these
+    new_key = go_up(empty_square_column, empty_square_row)
+    new_square = @board.find_square(new_key)
+    new_square
+  end
+
+  def down(empty_square_column, empty_square_row)#test these
+    new_key = go_down(empty_square_column, empty_square_row)
+    new_square = @board.find_square(new_key)
+    new_square
+  end
+
+  def go_left(empty_square_column, empty_square_row)
+    new_key_column = (empty_square_column - 1).to_s
+    new_key = empty_square_row += new_key_column
+    new_square = @board.find_square(new_key)
+    new_square
+  end
+
+  def go_right(empty_square_column, empty_square_row)
+    new_key_column = (empty_square_column + 1).to_s
+    new_key = empty_square_row += new_key_column
+    new_square = @board.find_square(new_key)
+    new_square
+  end
 end
