@@ -20,7 +20,7 @@ class Game
     if choice == "p" || choice == "play"
       comp = Player.new
       player = Player.new
-      comp_board, comp_destroyer, comp_sub = comp.computer_ship_placement
+      comp_destroyer, comp_sub = comp.computer_ship_placement
       # comp_board, comp_destroyer, comp_sub = computer_ship_placement(board)
       # player_board, player_destroyer, player_sub = player_ship_placement(board)
     elsif choice == "i" or choice == "input"

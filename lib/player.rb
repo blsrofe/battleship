@@ -24,7 +24,7 @@ class Player
     end
   end
 
-  def place_computer_destroyer#write test for this
+  def place_computer_destroyer#test this
     empty_square = find_empty_square
     choice = ["horizontal", "vertical"].sample
     empty_square.values[0].occupied = true
@@ -205,7 +205,7 @@ class Player
       next_square = place_ship_vertically(empty_square)
       next_square.values[0].occupied = true
       submarine.second_square = next_square.keys.join
-      third_square = place_ship_vertically(empty_square)
+      third_square = place_ship_vertically(next_square)
       third_square.values[0].occupied = true
       submarine.third_square = third_square.keys.join
       submarine

@@ -14,15 +14,6 @@ class PlayerTest < Minitest::Test
     refute square.values[0].occupied
   end
 
-  def test_can_place_computer_destroyer_ship
-
-    player = Player.new
-    empty_square = player.find_empty_square
-    refute empty_square.values[0].occupied
-    player.place_computer_destroyer
-    assert empty_square.values[0].occupied
-  end
-
   def test_can_place_ships_horizontally
     player = Player.new
     empty_square = player.board.layout[0]
@@ -76,7 +67,6 @@ class PlayerTest < Minitest::Test
   end
 
   def test_knows_if_horizontal_sub_will_fit_on_board
-
     player = Player.new
     first_square_destroyer = player.board.layout[5]#B2
     first_square_destroyer.values[0].occupied = true
@@ -89,7 +79,6 @@ class PlayerTest < Minitest::Test
   end
 
   def test_knows_if_vertical_sub_will_fit_on_board
-
     player = Player.new
     first_square_destroyer = player.board.layout[5]#B2
     first_square_destroyer.values[0].occupied = true
