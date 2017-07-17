@@ -23,9 +23,10 @@ class Game
     if choice == "p" || choice == "play"
       comp = Player.new
       player = Player.new
-      comp_destroyer, comp_sub = comp.computer_ship_placement
-      player_destroyer, player_sub = player.player_ship_placement
-      game_play_loop()
+      comp.computer_ship_placement
+      player.player_ship_placement
+      game_play_loop(comp, player)
+      print_final_message
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -68,6 +69,18 @@ class Game
     puts "C"
     puts "D"
     puts "==========="
+  end
+
+  def game_play_loop(comp, player)
+    while winner == nil
+      
+  end
+
+  def print_final_message
+    if @winner == "player"
+      puts "Congratulation, you won!"
+    elsif @winner == "computer"
+      puts "Sorry, you lost this time. Better luck next time!"
   end
 
 end
