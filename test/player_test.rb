@@ -15,11 +15,11 @@ class PlayerTest < Minitest::Test
   end
 
   def test_can_place_computer_destroyer_ship
-    
+
     player = Player.new
     empty_square = player.find_empty_square
     refute empty_square.values[0].occupied
-    player.place_computer_destroyer(empty_square)
+    player.place_computer_destroyer
     assert empty_square.values[0].occupied
   end
 
@@ -74,4 +74,31 @@ class PlayerTest < Minitest::Test
     new_square = player.go_down(empty_square_column, empty_square_row)
     assert_equal "C2", new_square.keys.join
   end
+
+  def test_knows_if_horizontal_sub_will_fit_on_board
+
+    player = Player.new
+    first_square_destroyer = player.board.layout[5]#B2
+    first_square_destroyer.values[0].occupied = true
+    second_square_destroyer = player.board.layout[9]#C2
+    second_square_destroyer.values[0].occupied = true
+    empty_square = player.board.layout[10]#C3 hash
+    refute player.evaluate_horizontal?(empty_square)
+    new_empty_square = player.board.layout[1]
+    assert player.evaluate_horizontal?(new_empty_square)
+  end
+
+  def test_knows_if_vertical_sub_will_fit_on_board
+
+    player = Player.new
+    first_square_destroyer = player.board.layout[5]#B2
+    first_square_destroyer.values[0].occupied = true
+    second_square_destroyer = player.board.layout[6]#B3
+    second_square_destroyer.values[0].occupied = true
+    empty_square = player.board.layout[9]#B4 hash
+    refute player.evaluate_vertical?(empty_square)
+    new_empty_square = player.board.layout[7]
+    assert player.evaluate_vertical?(new_empty_square)
+  end
+
 end

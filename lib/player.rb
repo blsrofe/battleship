@@ -9,11 +9,9 @@ class Player
   end
 
   def computer_ship_placement#how do I test this?
-    empty_square = find_empty_square
-    destroyer = place_computer_destroyer(empty_square)
-    unoccupied_square = find_unoccupied_start_square(new_board)
-    choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
-    final_setup_board, submarine = place_computer_sub(unoccupied_square, new_board, choice)
+    destroyer = place_computer_destroyer
+    choice, empty_square = valid_sub_placement_identifier
+    final_setup_board, submarine = place_computer_sub(empty_square, new_board, choice)
     return final_setup_board, destroyer, submarine
   end
 
@@ -26,7 +24,8 @@ class Player
     end
   end
 
-  def place_computer_destroyer(empty_square)#write test for this
+  def place_computer_destroyer#write test for this
+    empty_square = find_empty_square
     choice = ["horizontal", "vertical"].sample
     empty_square.values[0].occupied = true
     destroyer = Ship.new(empty_square.keys.join)
@@ -129,5 +128,65 @@ class Player
     new_key = empty_square_row += new_key_column
     new_square = @board.find_square(new_key)
     new_square
+  end
+
+  def valid_sub_placement_identifier#test this
+    empty_square = find_empty_square
+    vertical = evaluate_vertical?(empty_square)
+    horizontal = evaluate_horizontal?(empty_square)
+    if vertical == true && horizontal == true
+      choice = ["horizontal", "vertical"].sample
+      return choice, empty_square
+    elsif vertical == true
+      choice = "vertical"
+      return choice, empty_square
+    elsif horizontal == true
+      choice = "horizontal"
+      return choice, empty_square
+    else
+      valid_sub_placement_identifier
+    end
+  end
+
+  def evaluate_horizontal?(empty_square)
+    empty_square_name = empty_square.keys.join
+    look_right_square = @board.right_occupied?(empty_square_name)
+    look_left_square = @board.left_occupied?(empty_square_name)
+    empty_square_column = empty_square.keys.join[1].to_i
+    empty_square_row = empty_square.keys.join[0]
+    left_square = go_left(empty_square_column, empty_square_row)
+    right_square = go_right(empty_square_column, empty_square_row)
+    look_two_squares_right = @board.right_occupied?(right_square)
+    look_two_squares_left = @board.left_occupied?(left_square)
+    if look_left_square && look_right_square
+      false
+    elsif look_left_square && look_two_squares_right
+      false
+    elsif look_right_square && look_two_squares_left
+      false
+    else
+      true
+    end
+  end
+
+  def evaluate_vertical?(empty_square)
+    empty_square_name = empty_square.keys.join
+    look_above_square = @board.above_occupied?(empty_square_name)
+    look_below_square = @board.below_occupied?(empty_square_name)
+    empty_square_column = empty_square.keys.join[1].to_i
+    empty_square_row = empty_square.keys.join[0]
+    below_square = go_down(empty_square_column, empty_square_row)
+    above_square = go_up(empty_square_column, empty_square_row)
+    look_two_squares_above = @board.above_occupied?(above_square)
+    look_two_squares_below = @board.below_occupied?(below_square)
+    if look_below_square && look_above_square
+      false
+    elsif look_below_square && look_two_squares_above
+      false
+    elsif look_above_square && look_two_squares_below
+      false
+    else
+      true
+    end
   end
 end
