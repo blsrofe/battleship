@@ -110,4 +110,19 @@ class PlayerTest < Minitest::Test
     assert player.board.layout[2].values[0].occupied
   end
 
+  def test_can_add_player_destroyer
+    player = Player.new
+    destroyer_p = player.make_player_destroyer(["A1", "A2"])
+    assert_equal destroyer_p.first_square, player.board.layout[0].keys.join
+    assert_equal destroyer_p.second_square, player.board.layout[1].keys.join
+  end
+
+  def test_can_add_player_sub
+    player = Player.new
+    sub_p = player.make_player_sub(["A1", "B1", "C1"])
+    assert_equal sub_p.first_square, player.board.layout[0].keys.join
+    assert_equal sub_p.second_square, player.board.layout[4].keys.join
+    assert_equal sub_p.third_square, player.board.layout[8].keys.join
+  end
+
 end

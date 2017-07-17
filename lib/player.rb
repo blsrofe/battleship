@@ -212,4 +212,62 @@ class Player
     end
   end
 
+  def player_ship_placement
+    coord = display_player_message
+    des_coords = evaluate_coordinates(coord)
+    split_coord_collection = des_coords.split(" ")
+    destroyer_p = make_player_destroyer(split_coord_collection)
+    coords = get_sub_coordinates
+    sub_coords = evaluate_coordinates(coords)
+    split_sub_collection = sub_coords.split(" ")
+    sub_p = make_player_sub(split_sub_collection)
+  end
+
+  def display_player_message
+    puts "    I have laid out my ships on the grid.
+    You now need to layout your two ships.
+    The first is two units long and the
+    second is three units long.
+    The grid has A1 at the top left and D4 at the bottom right.
+
+    Enter the squares for the two-unit ship:"
+    coord = gets.chomp
+    coord
+  end
+
+  def evaluate_coordinates(coord)
+    #make sure to return coordinates in correct form upcase
+    #should have a length of five
+    #string[0] and [2] should be letter between and d
+    #string[1] and [3] should be numbers between 1-4
+    #second squre must be adjacent to first square
+    #should work for sub coords too
+    coord
+  end
+
+  def place_player_ship(coord_collection)
+    coord_collection.each do |coord|
+      square = @board.find_square(coord)
+      square.values[0].occupied = true
+    end
+  end
+
+  def make_player_destroyer(coord_collection)
+    place_player_ship(coord_collection)
+    destroyer_p = Ship.new(coord_collection[0], coord_collection[1])
+    destroyer_p
+  end
+
+  def get_sub_coordinates
+    puts "What are the coordinates for your submarine?"
+    sub_coor = gets.chomp
+    sub_coords
+  end
+
+  def make_player_sub(split_sub_collection)
+    place_player_ship(split_sub_collection)
+    sub_p = Ship.new(split_sub_collection[0], split_sub_collection[1], split_sub_collection[2])
+    sub_p
+  end
+
 end
