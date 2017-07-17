@@ -15,7 +15,7 @@ class PlayerTest < Minitest::Test
   end
 
   def test_can_place_computer_destroyer_ship
-    skip
+    
     player = Player.new
     empty_square = player.find_empty_square
     refute empty_square.values[0].occupied
@@ -34,7 +34,6 @@ class PlayerTest < Minitest::Test
   end
 
   def test_can_place_ships_vertically
-    skip
     player = Player.new
     empty_square = player.board.layout[0]
     below_square = player.place_ship_vertically(empty_square)

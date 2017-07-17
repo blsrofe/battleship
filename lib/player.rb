@@ -74,33 +74,21 @@ class Player
     if @board.above_occupied?(empty_square_name) && @board.below_occupied?(empty_square_name)
       place_ship_horizonally(empty_square)
     elsif @board.below_occupied?(empty_square_name)
-      new_square = up(empty_square_column, empty_square_row)
+      new_square = go_up(empty_square_column, empty_square_row)
       new_square
     elsif @board.above_occupied?(empty_square_name)
-      new_square = down(empty_square_column, empty_square_row)
+      new_square = go_down(empty_square_column, empty_square_row)
       new_square
     else
         choice = ["up", "down"].sample
         if choice == "up"
-          new_square = up(empty_square_column, empty_square_row)
+          new_square = go_up(empty_square_column, empty_square_row)
           new_square
         else
-          new_square = down(empty_square_column, empty_square_row)
+          new_square = go_down(empty_square_column, empty_square_row)
           new_square
         end
     end
-  end
-
-  def up(empty_square_column, empty_square_row)#test these
-    new_key = go_up(empty_square_column, empty_square_row)
-    new_square = @board.find_square(new_key)
-    new_square
-  end
-
-  def down(empty_square_column, empty_square_row)#test these
-    new_key = go_down(empty_square_column, empty_square_row)
-    new_square = @board.find_square(new_key)
-    new_square
   end
 
   def go_up(empty_square_column, empty_square_row)
