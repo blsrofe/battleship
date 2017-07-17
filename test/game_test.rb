@@ -27,15 +27,15 @@ class GameTest < Minitest::Test
   #   refute name.values[0].occupied
   # end
 
-  def test_can_place_computer_destroyer_ship
-    game = Game.new
-    board = Board.new
-    unoccupied_square = game.find_unoccupied_start_square(board)
-    refute unoccupied_square.values[0].occupied
-    game.place_computer_destroyer(unoccupied_square, board)
-    assert unoccupied_square.values[0].occupied
-  end
-
+  # def test_can_place_computer_destroyer_ship
+  #   game = Game.new
+  #   board = Board.new
+  #   unoccupied_square = game.find_unoccupied_start_square(board)
+  #   refute unoccupied_square.values[0].occupied
+  #   game.place_computer_destroyer(unoccupied_square, board)
+  #   assert unoccupied_square.values[0].occupied
+  # end
+  #
   def test_can_place_computer_sub_ship_vertically
     game = Game.new
     board = Board.new
@@ -76,29 +76,29 @@ class GameTest < Minitest::Test
     assert_equal "C3", new_key
   end
 
-  def test_can_place_ships_horizontally
-
-    game = Game.new
-    board = Board.new
-    unoccupied_square = board.layout[0]
-    right_square, board = game.place_ship_horizonally(unoccupied_square, board)
-    assert_equal board.layout[1], right_square
-    unoccupied_square = board.layout[3]
-    left_square, board = game.place_ship_horizonally(unoccupied_square, board)
-    assert_equal board.layout[2], left_square
-  end
-
-  def test_can_place_ships_vertically
-
-    game = Game.new
-    board = Board.new
-    unoccupied_square = board.layout[0]
-    below_square, board = game.place_ship_vertically(unoccupied_square, board)
-    assert_equal board.layout[4], below_square
-    unoccupied_square = board.layout[13]
-    above_square, board = game.place_ship_vertically(unoccupied_square, board)
-    assert_equal board.layout[9], above_square
-  end
+  # def test_can_place_ships_horizontally
+  #
+  #   game = Game.new
+  #   board = Board.new
+  #   unoccupied_square = board.layout[0]
+  #   right_square, board = game.place_ship_horizonally(unoccupied_square, board)
+  #   assert_equal board.layout[1], right_square
+  #   unoccupied_square = board.layout[3]
+  #   left_square, board = game.place_ship_horizonally(unoccupied_square, board)
+  #   assert_equal board.layout[2], left_square
+  # end
+  #
+  # def test_can_place_ships_vertically
+  #
+  #   game = Game.new
+  #   board = Board.new
+  #   unoccupied_square = board.layout[0]
+  #   below_square, board = game.place_ship_vertically(unoccupied_square, board)
+  #   assert_equal board.layout[4], below_square
+  #   unoccupied_square = board.layout[13]
+  #   above_square, board = game.place_ship_vertically(unoccupied_square, board)
+  #   assert_equal board.layout[9], above_square
+  # end
 
   def test_can_find_name_of_key_above
     game = Game.new
