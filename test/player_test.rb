@@ -60,4 +60,19 @@ class PlayerTest < Minitest::Test
     assert_equal "C3", new_square.keys.join
   end
 
+  def test_can_find_key_above
+    player = Player.new
+    empty_square_row = "B"
+    empty_square_column = 2
+    new_square = player.go_up(empty_square_column, empty_square_row)
+    assert_equal "A2", new_square.keys.join
+  end
+
+  def test_can_find_key_below
+    player = Player.new
+    empty_square_row = "B"
+    empty_square_column = 2
+    new_square = player.go_down(empty_square_column, empty_square_row)
+    assert_equal "C2", new_square.keys.join
+  end
 end

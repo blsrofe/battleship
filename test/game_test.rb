@@ -100,23 +100,23 @@ class GameTest < Minitest::Test
   #   assert_equal board.layout[9], above_square
   # end
 
-  def test_can_find_name_of_key_above
-    game = Game.new
-    board = Board.new
-    unoccupied_square_row = "B"
-    unoccupied_square_column = 2
-    new_key = game.go_up(unoccupied_square_column, unoccupied_square_row)
-    assert_equal "A2", new_key
-  end
-
-  def test_can_find_name_of_key_below
-    game = Game.new
-    board = Board.new
-    unoccupied_square_row = "B"
-    unoccupied_square_column = 2
-    new_key = game.go_down(unoccupied_square_column, unoccupied_square_row)
-    assert_equal "C2", new_key
-  end
+  # def test_can_find_name_of_key_above
+  #   game = Game.new
+  #   board = Board.new
+  #   unoccupied_square_row = "B"
+  #   unoccupied_square_column = 2
+  #   new_key = game.go_up(unoccupied_square_column, unoccupied_square_row)
+  #   assert_equal "A2", new_key
+  # end
+  #
+  # def test_can_find_name_of_key_below
+  #   game = Game.new
+  #   board = Board.new
+  #   unoccupied_square_row = "B"
+  #   unoccupied_square_column = 2
+  #   new_key = game.go_down(unoccupied_square_column, unoccupied_square_row)
+  #   assert_equal "C2", new_key
+  # end
 
   def test_knows_if_horizontal_sub_will_fit_on_board
 

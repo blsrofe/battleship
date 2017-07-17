@@ -251,29 +251,29 @@ class Game
   #   new_key
   # end
 
-  def go_up(unoccupied_square_column, unoccupied_square_row)
-    if unoccupied_square_row == "D"
-      new_key_row = "C"
-    elsif unoccupied_square_row == "C"
-      new_key_row = "B"
-    elsif unoccupied_square_row == "B"
-      new_key_row = "A"
-    end
-    new_key = new_key_row += unoccupied_square_column.to_s
-    new_key
-  end
-
-  def go_down(unoccupied_square_column, unoccupied_square_row)
-    if unoccupied_square_row == "A"
-      new_key_row = "B"
-    elsif unoccupied_square_row == "B"
-      new_key_row = "C"
-    elsif unoccupied_square_row == "C"
-      new_key_row = "D"
-    end
-    new_key = new_key_row += unoccupied_square_column.to_s
-    new_key
-  end
+  # def go_up(unoccupied_square_column, unoccupied_square_row)
+  #   if unoccupied_square_row == "D"
+  #     new_key_row = "C"
+  #   elsif unoccupied_square_row == "C"
+  #     new_key_row = "B"
+  #   elsif unoccupied_square_row == "B"
+  #     new_key_row = "A"
+  #   end
+  #   new_key = new_key_row += unoccupied_square_column.to_s
+  #   new_key
+  # end
+  #
+  # def go_down(unoccupied_square_column, unoccupied_square_row)
+  #   if unoccupied_square_row == "A"
+  #     new_key_row = "B"
+  #   elsif unoccupied_square_row == "B"
+  #     new_key_row = "C"
+  #   elsif unoccupied_square_row == "C"
+  #     new_key_row = "D"
+  #   end
+  #   new_key = new_key_row += unoccupied_square_column.to_s
+  #   new_key
+  # end
   #
   # def place_ship_vertically(unoccupied_square, comp_board)
   #   unoccupied_square_column = unoccupied_square.keys.join[1].to_i

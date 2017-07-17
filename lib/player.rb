@@ -103,6 +103,32 @@ class Player
     new_square
   end
 
+  def go_up(empty_square_column, empty_square_row)
+    if empty_square_row == "D"
+      new_key_row = "C"
+    elsif empty_square_row == "C"
+      new_key_row = "B"
+    elsif empty_square_row == "B"
+      new_key_row = "A"
+    end
+    new_key = new_key_row += empty_square_column.to_s
+    new_square = @board.find_square(new_key)
+    new_square
+  end
+
+  def go_down(empty_square_column, empty_square_row)
+    if empty_square_row == "A"
+      new_key_row = "B"
+    elsif empty_square_row == "B"
+      new_key_row = "C"
+    elsif empty_square_row == "C"
+      new_key_row = "D"
+    end
+    new_key = new_key_row += empty_square_column.to_s
+    new_square = @board.find_square(new_key)
+    new_square
+  end
+
   def go_left(empty_square_column, empty_square_row)
     new_key_column = (empty_square_column - 1).to_s
     new_key = empty_square_row += new_key_column
