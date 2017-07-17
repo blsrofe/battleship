@@ -156,8 +156,8 @@ class Player
     empty_square_row = empty_square.keys.join[0]
     left_square = go_left(empty_square_column, empty_square_row)
     right_square = go_right(empty_square_column, empty_square_row)
-    look_two_squares_right = @board.right_occupied?(right_square)
-    look_two_squares_left = @board.left_occupied?(left_square)
+    look_two_squares_right = @board.right_occupied?(right_square.keys.join)
+    look_two_squares_left = @board.left_occupied?(left_square.keys.join)
     if look_left_square && look_right_square
       false
     elsif look_left_square && look_two_squares_right
@@ -177,8 +177,8 @@ class Player
     empty_square_row = empty_square.keys.join[0]
     below_square = go_down(empty_square_column, empty_square_row)
     above_square = go_up(empty_square_column, empty_square_row)
-    look_two_squares_above = @board.above_occupied?(above_square)
-    look_two_squares_below = @board.below_occupied?(below_square)
+    look_two_squares_above = @board.above_occupied?(above_square.keys.join)
+    look_two_squares_below = @board.below_occupied?(below_square.keys.join)
     if look_below_square && look_above_square
       false
     elsif look_below_square && look_two_squares_above
