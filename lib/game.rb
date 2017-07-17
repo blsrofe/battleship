@@ -1,5 +1,6 @@
 require './lib/board'
 require './lib/ship'
+require './lib/player'
 require 'pry'
 class Game
 
@@ -17,9 +18,11 @@ class Game
 
   def start_sequence(choice)
     if choice == "p" || choice == "play"
-      board = Board.new
-      comp_board, comp_destroyer, comp_sub = computer_ship_placement(board)
-      player_board, player_destroyer, player_sub = player_ship_placement(board)
+      comp = Player.new
+      player = Player.new
+      comp_board, comp_destroyer, comp_sub = comp.computer_ship_placement
+      # comp_board, comp_destroyer, comp_sub = computer_ship_placement(board)
+      # player_board, player_destroyer, player_sub = player_ship_placement(board)
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -40,14 +43,14 @@ class Game
     "You have two ships. You will be prompted to place your ships."
   end
 
-  def computer_ship_placement(board)
-    unoccupied_square = find_unoccupied_start_square(board)
-    new_board, destroyer = place_computer_destroyer(unoccupied_square, board)
-    unoccupied_square = find_unoccupied_start_square(new_board)
-    choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
-    final_setup_board, submarine = place_computer_sub(unoccupied_square, new_board, choice)
-    return final_setup_board, destroyer, submarine
-  end
+  # def computer_ship_placement(board)
+  #   unoccupied_square = find_unoccupied_start_square(board)
+  #   new_board, destroyer = place_computer_destroyer(unoccupied_square, board)
+  #   unoccupied_square = find_unoccupied_start_square(new_board)
+  #   choice, unoccupied_square = valid_sub_placement_identifier(unoccupied_square, new_board)
+  #   final_setup_board, submarine = place_computer_sub(unoccupied_square, new_board, choice)
+  #   return final_setup_board, destroyer, submarine
+  # end
 
   def player_ship_placement(board)
     coord = display_player_message
@@ -88,14 +91,14 @@ class Game
   def place_player_sub(split_sub_collection, new_board)
   end
 
-  def find_unoccupied_start_square(comp_board)
-    random_square = comp_board.layout.sample
-    if random_square.values[0].occupied == false
-      return random_square
-    else
-      find_unoccupied_start_square(comp_board)
-    end
-  end
+  # def find_unoccupied_start_square(comp_board)
+  #   random_square = comp_board.layout.sample
+  #   if random_square.values[0].occupied == false
+  #     return random_square
+  #   else
+  #     find_unoccupied_start_square(comp_board)
+  #   end
+  # end
 
   def display_player_message
     puts "    I have laid out my ships on the grid.

@@ -20,12 +20,12 @@ class GameTest < Minitest::Test
     assert_equal instructions, game.give_instructions
   end
 
-  def test_can_find_unoccupied_square_to_place_ships
-    game = Game.new
-    board = Board.new
-    name = game.find_unoccupied_start_square(board)
-    refute name.values[0].occupied
-  end
+  # def test_can_find_unoccupied_square_to_place_ships
+  #   game = Game.new
+  #   board = Board.new
+  #   name = game.find_unoccupied_start_square(board)
+  #   refute name.values[0].occupied
+  # end
 
   def test_can_place_computer_destroyer_ship
     game = Game.new
