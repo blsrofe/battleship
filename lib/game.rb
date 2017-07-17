@@ -172,22 +172,22 @@ class Game
     end
   end
 
-  def place_computer_destroyer(unoccupied_square, comp_board)
-    choice = ["horizontal", "vertical"].sample
-    unoccupied_square.values[0].occupied = true
-    destroyer = Ship.new(unoccupied_square.keys.join)
-    if choice == "horizontal"
-      next_square, comp_board = place_ship_horizonally(unoccupied_square, comp_board)
-      next_square.values[0].occupied = true
-      destroyer.second_square = next_square.keys.join
-      return comp_board, destroyer
-    else
-      next_square, comp_board = place_ship_vertically(unoccupied_square, comp_board)
-      next_square.values[0].occupied = true
-      destroyer.second_square = next_square.keys.join
-      return comp_board, destroyer
-    end
-  end
+  # def place_computer_destroyer(unoccupied_square, comp_board)
+  #   choice = ["horizontal", "vertical"].sample
+  #   unoccupied_square.values[0].occupied = true
+  #   destroyer = Ship.new(unoccupied_square.keys.join)
+  #   if choice == "horizontal"
+  #     next_square, comp_board = place_ship_horizonally(unoccupied_square, comp_board)
+  #     next_square.values[0].occupied = true
+  #     destroyer.second_square = next_square.keys.join
+  #     return comp_board, destroyer
+  #   else
+  #     next_square, comp_board = place_ship_vertically(unoccupied_square, comp_board)
+  #     next_square.values[0].occupied = true
+  #     destroyer.second_square = next_square.keys.join
+  #     return comp_board, destroyer
+  #   end
+  # end
 
   def place_computer_sub(unoccupied_square, comp_board, choice)
     unoccupied_square.values[0].occupied = true
