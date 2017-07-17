@@ -94,28 +94,4 @@ class Game
     des_coord
   end
 
-  def place_computer_sub(unoccupied_square, comp_board, choice)
-    unoccupied_square.values[0].occupied = true
-    submarine = Ship.new(unoccupied_square.keys.join)
-    if choice == "horizontal"
-      next_square = place_ship_horizonally(unoccupied_square, comp_board)[0]
-      next_square.values[0].occupied = true
-      submarine.second_square = next_square.keys.join
-      third_square = place_ship_horizonally(next_square, comp_board)[0]
-      third_square.values[0].occupied = true
-      submarine.third_square = third_square.keys.join
-      return comp_board, submarine
-    else
-      next_square = place_ship_vertically(unoccupied_square, comp_board)[0]
-      next_square.values[0].occupied = true
-      submarine.second_square = next_square.keys.join
-      third_square = place_ship_vertically(next_square, comp_board)[0]
-      third_square.values[0].occupied = true
-      submarine.third_square = third_square.keys.join
-      return comp_board, submarine
-    end
-  end
-
-
-
 end

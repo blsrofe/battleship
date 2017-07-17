@@ -20,29 +20,9 @@ class GameTest < Minitest::Test
     assert_equal instructions, game.give_instructions
   end
 
-  def test_can_place_computer_sub_ship_vertically
-    game = Game.new
-    board = Board.new
-    unoccupied_square = board.layout[0]
-    refute unoccupied_square.values[0].occupied
-    game.place_computer_sub(unoccupied_square, board, "vertical")
-    assert unoccupied_square.values[0].occupied
-    assert board.layout[4].values[0].occupied
-    assert board.layout[8].values[0].occupied
-  end
 
-  def test_can_place_computer_sub_ship_horizontally
-    game = Game.new
-    board = Board.new
-    unoccupied_square = board.layout[0]
-    refute unoccupied_square.values[0].occupied
-    game.place_computer_sub(unoccupied_square, board, "horizontal")
-    assert unoccupied_square.values[0].occupied
-    assert board.layout[1].values[0].occupied
-    assert board.layout[2].values[0].occupied
-  end
 
-  
+
   def test_can_add_player_destroyer#not sure how to test this
     skip
     game = Game.new

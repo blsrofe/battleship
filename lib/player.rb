@@ -11,8 +11,8 @@ class Player
   def computer_ship_placement#how do I test this?
     destroyer = place_computer_destroyer
     choice, empty_square = valid_sub_placement_identifier
-    final_setup_board, submarine = place_computer_sub(empty_square, new_board, choice)
-    return final_setup_board, destroyer, submarine
+    submarine = place_computer_sub(choice, empty_square)
+    return destroyer, submarine
   end
 
   def find_empty_square
@@ -189,4 +189,27 @@ class Player
       true
     end
   end
+
+  def place_computer_sub(choice, empty_square)#test this
+    empty_square.values[0].occupied = true
+    submarine = Ship.new(empty_square.keys.join)
+    if choice == "horizontal"
+      next_square = place_ship_horizonally(empty_square)
+      next_square.values[0].occupied = true
+      submarine.second_square = next_square.keys.join
+      third_square = place_ship_horizonally(next_square)
+      third_square.values[0].occupied = true
+      submarine.third_square = third_square.keys.join
+      submarine
+    else
+      next_square = place_ship_vertically(empty_square)
+      next_square.values[0].occupied = true
+      submarine.second_square = next_square.keys.join
+      third_square = place_ship_vertically(empty_square)
+      third_square.values[0].occupied = true
+      submarine.third_square = third_square.keys.join
+      submarine
+    end
+  end
+
 end

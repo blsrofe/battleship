@@ -101,4 +101,24 @@ class PlayerTest < Minitest::Test
     assert player.evaluate_vertical?(new_empty_square)
   end
 
+  def test_can_place_computer_sub_ship_vertically
+    player = Player.new
+    empty_square = player.board.layout[0]
+    refute empty_square.values[0].occupied
+    player.place_computer_sub("vertical", empty_square)
+    assert empty_square.values[0].occupied
+    assert player.board.layout[4].values[0].occupied
+    assert player.board.layout[8].values[0].occupied
+  end
+
+  def test_can_place_computer_sub_ship_horizontally
+    player = Player.new
+    empty_square = player.board.layout[0]
+    refute empty_square.values[0].occupied
+    player.place_computer_sub("horizontal", empty_square)
+    assert empty_square.values[0].occupied
+    assert player.board.layout[1].values[0].occupied
+    assert player.board.layout[2].values[0].occupied
+  end
+
 end
