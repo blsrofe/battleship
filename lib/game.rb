@@ -54,11 +54,19 @@ class Game
     des_coords = evaluate_coordinates(coord)
     split_coord_collection = des_coords.split(" ")
     new_board, destroyer_p = place_player_destroyer(split_coord_collection, board)
-    get_sub_coordinates
+    coords = get_sub_coordinates
+    sub_coords = evaluate_coordinates(sub_coords)
+    split_sub_collection = sub_coords.split(" ")
+    final_play_board, sub_p = place_player_sub(split_sub_collection, new_board)
   end
 
   def evaluate_coordinates(coord)
     #make sure to return coordinates in correct form upcase
+    #should have a length of five
+    #string[0] and [2] should be letter between and d
+    #string[1] and [3] should be numbers between 1-4
+    #second squre must be adjacent to first square
+    #should work for sub coords too
     coord
   end
 
@@ -69,6 +77,15 @@ class Game
     end
     destroyer_p = Ship.new(coord_collection[0], coord_collection[1])
     return board, destroyer_p
+  end
+
+  def get_sub_coordinates
+    puts "What are the coordinates for your submarine?"
+    sub_coor = gets.chomp
+    sub_coords
+  end
+
+  def place_player_sub(split_sub_collection, new_board)
   end
 
   def find_unoccupied_start_square(comp_board)
