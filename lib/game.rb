@@ -4,9 +4,12 @@ require './lib/player'
 require 'pry'
 class Game
 
+  attr_accessor :board,
+                :winner
 
   def initialize
     @board = Board.new
+    @winner = nil
   end
 
   def initial_instructions
@@ -22,6 +25,7 @@ class Game
       player = Player.new
       comp_destroyer, comp_sub = comp.computer_ship_placement
       player_destroyer, player_sub = player.player_ship_placement
+      game_play_loop()
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""

@@ -2,17 +2,20 @@ require './lib/board'
 require './lib/ship'
 class Player
 
-  attr_accessor :board
+  attr_accessor :board,
+                :destroyer,
+                :submarine
 
-  def initialize(board = Board.new)
+  def initialize(board = Board.new, destroyer = nil, submarine = nil)
     @board = board
+    @destroyer = destroyer
+    @submarine = submarine
   end
 
   def computer_ship_placement#how do I test this?
-    destroyer = place_computer_destroyer
+    place_computer_destroyer
     choice, empty_square = valid_sub_placement_identifier
-    submarine = place_computer_sub(choice, empty_square)
-    return destroyer, submarine
+    place_computer_sub(choice, empty_square)
   end
 
   def find_empty_square
@@ -28,17 +31,15 @@ class Player
     empty_square = find_empty_square
     choice = ["horizontal", "vertical"].sample
     empty_square.values[0].occupied = true
-    destroyer = Ship.new(empty_square.keys.join)
+    @destroyer = Ship.new(empty_square.keys.join)
     if choice == "horizontal"
       next_square = place_ship_horizonally(empty_square)
       next_square.values[0].occupied = true
-      destroyer.second_square = next_square.keys.join
-      return destroyer
+      @destroyer.second_square = next_square.keys.join
     else
       next_square = place_ship_vertically(empty_square)
       next_square.values[0].occupied = true
-      destroyer.second_square = next_square.keys.join
-      return destroyer
+      @destroyer.second_square = next_square.keys.join
     end
   end
 
@@ -192,23 +193,21 @@ class Player
 
   def place_computer_sub(choice, empty_square)#test this
     empty_square.values[0].occupied = true
-    submarine = Ship.new(empty_square.keys.join)
+    @submarine = Ship.new(empty_square.keys.join)
     if choice == "horizontal"
       next_square = place_ship_horizonally(empty_square)
       next_square.values[0].occupied = true
-      submarine.second_square = next_square.keys.join
+      @submarine.second_square = next_square.keys.join
       third_square = place_ship_horizonally(next_square)
       third_square.values[0].occupied = true
-      submarine.third_square = third_square.keys.join
-      submarine
+      @submarine.third_square = third_square.keys.join
     else
       next_square = place_ship_vertically(empty_square)
       next_square.values[0].occupied = true
-      submarine.second_square = next_square.keys.join
+      @submarine.second_square = next_square.keys.join
       third_square = place_ship_vertically(next_square)
       third_square.values[0].occupied = true
-      submarine.third_square = third_square.keys.join
-      submarine
+      @submarine.third_square = third_square.keys.join
     end
   end
 
@@ -216,11 +215,11 @@ class Player
     coord = display_player_message
     des_coords = evaluate_coordinates(coord)
     split_coord_collection = des_coords.split(" ")
-    destroyer_p = make_player_destroyer(split_coord_collection)
+    make_player_destroyer(split_coord_collection)
     coords = get_sub_coordinates
     sub_coords = evaluate_coordinates(coords)
     split_sub_collection = sub_coords.split(" ")
-    sub_p = make_player_sub(split_sub_collection)
+    make_player_sub(split_sub_collection)
   end
 
   def display_player_message
@@ -254,8 +253,7 @@ class Player
 
   def make_player_destroyer(coord_collection)
     place_player_ship(coord_collection)
-    destroyer_p = Ship.new(coord_collection[0], coord_collection[1])
-    destroyer_p
+    @destroyer = Ship.new(coord_collection[0], coord_collection[1])
   end
 
   def get_sub_coordinates
@@ -266,8 +264,7 @@ class Player
 
   def make_player_sub(split_sub_collection)
     place_player_ship(split_sub_collection)
-    sub_p = Ship.new(split_sub_collection[0], split_sub_collection[1], split_sub_collection[2])
-    sub_p
+    @submarine = Ship.new(split_sub_collection[0], split_sub_collection[1], split_sub_collection[2])
   end
 
 end
