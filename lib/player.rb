@@ -43,4 +43,60 @@ class Player
     end
   end
 
+  def place_ship_horizonally(empty_square)
+    empty_square_column = empty_square.keys.join[1].to_i
+    empty_square_row = empty_square.keys.join[0]
+    empty_square_name = empty_square.keys.join
+    if @board.left_occupied?(empty_square_name) && @board.right_occupied?(empty_square_name)
+      place_ship_vertically(empty_square)
+    elsif @board.left_occupied?(empty_square_name)
+      new_key = go_right(empty_square_column, empty_square_row)
+      new_square = @board.find_square(new_key)
+      return new_square
+    elsif @board.right_occupied?(empty_square_name)
+      new_key = go_left(empty_square_column, empty_square_row)
+      new_square = @board.find_square(new_key)
+      return new_square
+    else
+        choice = ["left", "right"].sample
+        if choice == "left"
+          new_key = go_left(empty_square_column, empty_square_row)
+          new_square = @board.find_square(new_key)
+          return new_square
+        else
+          new_key = go_right(empty_square_column, empty_square_row)
+          new_square = @board.find_square(new_key)
+          return new_square
+        end
+    end
+  end
+
+  def place_ship_vertically(empty_square)
+    empty_square_column = empty_square.keys.join[1].to_i
+    empty_square_row = empty_square.keys.join[0]
+    empty_square_name = empty_square.keys.join
+    if @board.above_occupied?(empty_square_name) && @board.below_occupied?(empty_square_name)
+      place_ship_horizonally(empty_square)
+    elsif @board.below_occupied?(empty_square_name)
+      new_key = go_up(empty_square_column, empty_square_row)
+      new_square = @board.find_square(new_key)
+      return new_square
+    elsif @board.above_occupied?(empty_square_name)
+      new_key = go_down(empty_square_column, empty_square_row)
+      new_square = @board.find_square(new_key)
+      return new_square
+    else
+        choice = ["up", "down"].sample
+        if choice == "up"
+          new_key = go_up(empty_square_column, empty_square_row)
+          new_square = @board.find_square(new_key)
+          return new_square
+        else
+          new_key = go_down(empty_square_column, empty_square_row)
+          new_square = @board.find_square(new_key)
+          return new_square
+        end
+    end
+  end
+
 end
