@@ -21,7 +21,7 @@ class Game
       comp = Player.new
       player = Player.new
       comp_destroyer, comp_sub = comp.computer_ship_placement
-      player_destroyer, player_sub = player_ship_placement
+      player_destroyer, player_sub = player.player_ship_placement
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -40,6 +40,30 @@ class Game
 
   def give_instructions
     "You have two ships. You will be prompted to place your ships."
+  end
+
+  def computer_view
+    puts "==========="
+    puts "Computer View"
+    puts "==========="
+    puts ".1234"
+    puts "A"
+    puts "B"
+    puts "C"
+    puts "D"
+    puts "==========="
+  end
+
+  def player_grid
+    puts "==========="
+    puts "Player View"
+    puts "==========="
+    puts ".1234"
+    puts "A"
+    puts "B"
+    puts "C"
+    puts "D"
+    puts "==========="
   end
 
 end

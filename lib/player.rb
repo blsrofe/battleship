@@ -261,7 +261,7 @@ class Player
   def get_sub_coordinates
     puts "What are the coordinates for your submarine?"
     sub_coor = gets.chomp
-    sub_coords
+    sub_coor
   end
 
   def make_player_sub(split_sub_collection)
