@@ -146,6 +146,12 @@ class GameTest < Minitest::Test
     assert game.evaluate_vertical?(new_unoccupied_square, comp_board)
   end
 
-
+  def test_can_add_player_destroyer#not sure how to test this
+    skip
+    game = Game.new
+    board = Board.new
+    board, destroyer_p = game.place_player_destroyer(["A1", "A2"] , board)
+    assert_equal destroyer_p, Ship.new("A1", "A2")
+  end
 
 end

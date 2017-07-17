@@ -54,6 +54,7 @@ class Game
     des_coords = evaluate_coordinates(coord)
     split_coord_collection = des_coords.split(" ")
     new_board, destroyer_p = place_player_destroyer(split_coord_collection, board)
+    get_sub_coordinates
   end
 
   def evaluate_coordinates(coord)
@@ -66,7 +67,7 @@ class Game
       square = board.find_square(coord)
       square.values[0].occupied = true
     end
-    destroyer_p = Ship.new(start_square, second_square)
+    destroyer_p = Ship.new(coord_collection[0], coord_collection[1])
     return board, destroyer_p
   end
 
