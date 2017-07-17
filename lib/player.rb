@@ -111,6 +111,8 @@ class Player
       new_key_row = "C"
     elsif empty_square_row == "C"
       new_key_row = "D"
+    elsif empty_square_row == "D"
+
     end
     new_key = new_key_row += empty_square_column.to_s
     new_square = @board.find_square(new_key)
@@ -176,18 +178,34 @@ class Player
     look_below_square = @board.below_occupied?(empty_square_name)
     empty_square_column = empty_square.keys.join[1].to_i
     empty_square_row = empty_square.keys.join[0]
-    below_square = go_down(empty_square_column, empty_square_row)
-    above_square = go_up(empty_square_column, empty_square_row)
-    look_two_squares_above = @board.above_occupied?(above_square.keys.join)
-    look_two_squares_below = @board.below_occupied?(below_square.keys.join)
     if look_below_square && look_above_square
       false
-    elsif look_below_square && look_two_squares_above
-      false
-    elsif look_above_square && look_two_squares_below
-      false
+    elsif look_below_square
+      above_square = go_up(empty_square_column, empty_square_row)
+      look_two_squares_above = @board.above_occupied?(above_square.keys.join)
+      if look_two_squares_above
+        false
+      else
+        true
+      end
+    elsif look_above_square
+      below_square = go_down(empty_square_column, empty_square_row)
+      look_two_squares_below = @board.below_occupied?(below_square.keys.join)
+      if look_two_squares_below
+        false
+      else
+        true
+      end
     else
-      true
+      below_square = go_down(empty_square_column, empty_square_row)
+      look_two_squares_below = @board.below_occupied?(below_square.keys.join)
+      above_square = go_up(empty_square_column, empty_square_row)
+      look_two_squares_above = @board.above_occupied?(above_square.keys.join)
+      if look_two_squares_above && look_two_squares_below
+        false
+      else
+        true
+      end
     end
   end
 

@@ -49,7 +49,7 @@ class Game
 
   def computer_view
     puts "==========="
-    puts "Computer View"
+    puts "Computer Board"
     puts "==========="
     puts ".1234"
     puts "A"
@@ -61,7 +61,7 @@ class Game
 
   def player_grid
     puts "==========="
-    puts "Player View"
+    puts "Your Board"
     puts "==========="
     puts ".1234"
     puts "A"
@@ -73,7 +73,9 @@ class Game
 
   def game_play_loop(comp, player)
     while winner == nil
-      
+      player_grid
+      player_shoots
+    end
   end
 
   def print_final_message
@@ -81,6 +83,11 @@ class Game
       puts "Congratulation, you won!"
     elsif @winner == "computer"
       puts "Sorry, you lost this time. Better luck next time!"
+    end
+  end
+
+  def player_shoots
+    puts "Which space do you want to shoot at?"
   end
 
 end
