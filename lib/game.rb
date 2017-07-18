@@ -4,11 +4,9 @@ require './lib/player'
 require 'pry'
 class Game
 
-  attr_accessor :board,
-                :winner
+  attr_accessor :winner
 
   def initialize
-    @board = Board.new
     @winner = nil
   end
 
@@ -25,7 +23,7 @@ class Game
       player = Player.new
       comp.computer_ship_placement
       player.player_ship_placement
-      # game_play_loop(comp, player)
+      game_play_loop(comp, player)
       # print_final_message
     elsif choice == "i" or choice == "input"
       puts give_instructions
@@ -47,34 +45,39 @@ class Game
     "You have two ships. You will be prompted to place your ships."
   end
 
-  def computer_view
+  def computer_view(player)
+    square = player.board.layout
     puts "==========="
     puts "Computer Board"
     puts "==========="
     puts ".1234"
-    puts "A"
-    puts "B"
-    puts "C"
-    puts "D"
+    puts "A#{square[0].values[0].shot}#{square[1].values[0].shot}#{square[2].values[0].shot}#{square[3].values[0].shot}"
+    puts "B#{square[4].values[0].shot}#{square[5].values[0].shot}#{square[6].values[0].shot}#{square[7].values[0].shot}"
+    puts "C#{square[8].values[0].shot}#{square[9].values[0].shot}#{square[10].values[0].shot}#{square[11].values[0].shot}"
+    puts "D#{square[12].values[0].shot}#{square[13].values[0].shot}#{square[14].values[0].shot}#{square[15].values[0].shot}"
     puts "==========="
   end
 
-  def player_grid
+  def player_view(comp)
+    square = comp.board.layout
     puts "==========="
     puts "Your Board"
     puts "==========="
     puts ".1234"
-    puts "A"
-    puts "B"
-    puts "C"
-    puts "D"
+    puts "A#{square[0].values[0].shot}#{square[1].values[0].shot}#{square[2].values[0].shot}#{square[3].values[0].shot}"
+    puts "B#{square[4].values[0].shot}#{square[5].values[0].shot}#{square[6].values[0].shot}#{square[7].values[0].shot}"
+    puts "C#{square[8].values[0].shot}#{square[9].values[0].shot}#{square[10].values[0].shot}#{square[11].values[0].shot}"
+    puts "D#{square[12].values[0].shot}#{square[13].values[0].shot}#{square[14].values[0].shot}#{square[15].values[0].shot}"
+
     puts "==========="
   end
 
   def game_play_loop(comp, player)
     while winner == nil
-      player_grid
-      player_shoots
+      player_view(comp)
+      player_shot_sequence(comp)
+      computer_view(player)
+      # computer shoots
     end
   end
 
@@ -86,8 +89,31 @@ class Game
     end
   end
 
-  def player_shoots
+  def player_shot_sequence(comp)
+    shot = get_player_shot
+    good_shot = validate_on_board(shot)
+    shoot(good_shot, comp)
+  end
+
+  def get_player_shot
     puts "Which space do you want to shoot at?"
+    shot = gets.chomp
+    shot
+  end
+
+  def validate_on_board(shot)
+    good_shot = /([A-D])([1-4])/
+    match = good_shot.match(shot)
+    if match && space.length == 2
+      shot
+    else
+      puts "That is not a valid entry. Please try again."
+      shot = get_player_shot
+      validate_shoot(shot)
+    end
+  end
+
+  def shoot(shot, comp)
   end
 
 end
