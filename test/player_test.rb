@@ -134,7 +134,12 @@ class PlayerTest < Minitest::Test
   end
 
   def test_if_horizontal_knows_coordinates_are_next_to_each_other
-    skip
+    
+    player = Player.new
+    next_coord = "A2 A3"
+    assert player.horizontal?(next_coord)
+    new_coord = "B1 B3"
+    refute player.horizontal?(new_coord)
   end
 
   def test_knows_if_player_entered_coordinates_are_correctly_formatted
