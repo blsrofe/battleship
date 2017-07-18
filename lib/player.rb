@@ -282,7 +282,7 @@ class Player
   end
 
   def evaluate_coordinates_proximity(coord)
-    if horizontal? || vertical?
+    if horizontal?(coord) || vertical?(coord)
       coord
     else
       puts "These are not valid coordinates. Make sure your coordinates are next to each other."
@@ -292,7 +292,7 @@ class Player
     end
   end
 
-  def horizontal?(coord)#test this
+  def horizontal?(coord)#test this, not working
     split_coord_collection = coord.split(" ")
     first_coord = split_coord_collection[0]
     second_cord = split_coord_collection[1]
@@ -304,7 +304,7 @@ class Player
     end
   end
 
-  def vertical?(coord)#test this 
+  def vertical?(coord)#test this, not working
     split_coord_collection = coord.split(" ")
     first_coord = split_coord_collection[0]
     second_cord = split_coord_collection[1]
