@@ -126,7 +126,13 @@ class Game
       shots << shot
       square.values.shot = "H"
       puts "That is a hit!"
+      if comp.destroyer.coordinates.include? {|coord| coord == shot}
+        comp.destroyer.hit_points -= 1
+      elsif comp.submarine.coordinates.include? {|coord| coord == shot}
+        comp.destroyer.hit_points -= 1
       #need to add hit on ship and decide if game is over
+      #destroyer and sub are now arrays in ship class
+      #check to see if ship is at 0 health points and if there is a winner
     else
       shots << shot
       square.values.shot = "M"

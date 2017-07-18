@@ -1,16 +1,12 @@
 class Ship
 
-  attr_accessor :first_square,
-                :hit_points,
-                :second_square,
-                :third_square
+  attr_accessor :hit_points,
+                :coordinates
 
 
-  def initialize(first_square, hit_points, second_square = nil, third_square = nil)
-    @first_square = first_square
+  def initialize(hit_points, coordinates = [])
     @hit_points = hit_points
-    @second_square = second_square
-    @third_square = third_square
+    @coordinates = coordinates
   end
 
 end
