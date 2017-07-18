@@ -92,7 +92,8 @@ class Game
   def player_shot_sequence(comp)
     shot = get_player_shot
     good_shot = validate_on_board(shot)
-    shoot(good_shot, comp)
+    shots = []
+    shoot(good_shot, comp, shots)
   end
 
   def get_player_shot
@@ -113,7 +114,23 @@ class Game
     end
   end
 
-  def shoot(shot, comp)
+  def shoot(shot, comp, shots)
+    square = comp.board.layout.find_square(shot)
+    already_called = shots.include? do |coord|
+      coord == shot
+    end
+    if already_called
+      puts "You have already picked that square. Please select another."
+      player_shot_sequence(comp)
+    elsif square.values.occupied == true
+      shots << shot
+      square.values.shot = "H"
+      puts "That is a hit!"
+      #need to add hit on ship and decide if game is over
+    else
+      shots << shot
+      square.values.shot = "M"
+      puts "That is a miss"
   end
 
 end

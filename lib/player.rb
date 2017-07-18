@@ -31,7 +31,7 @@ class Player
     empty_square = find_empty_square
     choice = ["horizontal", "vertical"].sample
     empty_square.values[0].occupied = true
-    @destroyer = Ship.new(empty_square.keys.join)
+    @destroyer = Ship.new(empty_square.keys.join, 2)
     if choice == "horizontal"
       next_square = place_ship_horizonally(empty_square)
       next_square.values[0].occupied = true
@@ -227,7 +227,7 @@ class Player
 
   def place_computer_sub(choice, empty_square)#test this
     empty_square.values[0].occupied = true
-    @submarine = Ship.new(empty_square.keys.join)
+    @submarine = Ship.new(empty_square.keys.join, 3)
     if choice == "horizontal"
       next_square = place_ship_horizonally(empty_square)
       next_square.values[0].occupied = true
@@ -326,7 +326,7 @@ class Player
 
   def make_player_destroyer(coord_collection)
     place_player_ship(coord_collection)
-    @destroyer = Ship.new(coord_collection[0], coord_collection[1])
+    @destroyer = Ship.new(coord_collection[0], 2, coord_collection[1])
   end
 
   def get_sub_coordinates
@@ -337,7 +337,7 @@ class Player
 
   def make_player_sub(split_sub_collection)
     place_player_ship(split_sub_collection)
-    @submarine = Ship.new(split_sub_collection[0], split_sub_collection[1], split_sub_collection[2])
+    @submarine = Ship.new(split_sub_collection[0], 3, split_sub_collection[1], split_sub_collection[2])
   end
 
   def evaluate_sub_coordinates_form(coord)
