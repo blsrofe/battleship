@@ -125,6 +125,18 @@ class PlayerTest < Minitest::Test
     assert_equal player.submarine.third_square, player.board.layout[8].keys.join
   end
 
+  def test_if_vertical_knows_coordinates_are_next_to_each_other
+    player = Player.new
+    next_coord = "A2 B2"
+    assert player.vertical?(next_coord)
+    new_coord = "B1 D1"
+    refute player.vertical?(new_coord)
+  end
+
+  def test_if_horizontal_knows_coordinates_are_next_to_each_other
+    skip
+  end
+
   def test_knows_if_player_entered_coordinates_are_correctly_formatted
     player = Player.new
     coord = "D3 D4"
