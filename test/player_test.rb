@@ -134,7 +134,7 @@ class PlayerTest < Minitest::Test
   end
 
   def test_if_horizontal_knows_coordinates_are_next_to_each_other
-    
+
     player = Player.new
     next_coord = "A2 A3"
     assert player.horizontal?(next_coord)
@@ -152,6 +152,35 @@ class PlayerTest < Minitest::Test
     player = Player.new
     coord = "D3 D4"
     assert_equal "D3 D4", player.evaluate_coordinates_proximity(coord)
+  end
+
+  def test_if_vertical_knows_sub_coordinates_are_next_to_each_other
+    player = Player.new
+    next_coord = "A2 B2 C2"
+    assert player.sub_vertical?(next_coord)
+    new_coord = "B1 D1 A1"
+    refute player.sub_vertical?(new_coord)
+  end
+
+  def test_if_horizontal_knows_sub_coordinates_are_next_to_each_other
+
+    player = Player.new
+    next_coord = "A2 A3 A4"
+    assert player.sub_horizontal?(next_coord)
+    new_coord = "B1 B3 B4"
+    refute player.sub_horizontal?(new_coord)
+  end
+
+  def test_knows_if_player_entered_sub_coordinates_are_correctly_formatted
+    player = Player.new
+    coord = "D2 D3 D4"
+    assert_equal "D2 D3 D4", player.evaluate_sub_coordinates_form(coord)
+  end
+
+  def test_knows_if_player_entered_sub_coordinates_are_next_to_each_other
+    player = Player.new
+    coord = "D2 D3 D4"
+    assert_equal "D2 D3 D4", player.evaluate_sub_coordinates_proximity(coord)
   end
 
 end
