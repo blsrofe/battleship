@@ -247,13 +247,13 @@ class Player
 
   def player_ship_placement
     coord = display_player_message
-    des_coords = evaluate_coordinates(coord)
+    des_coords = evaluate_coordinates_form(coord)
     split_coord_collection = des_coords.split(" ")
     make_player_destroyer(split_coord_collection)
-    coords = get_sub_coordinates
-    sub_coords = evaluate_coordinates(coords)
-    split_sub_collection = sub_coords.split(" ")
-    make_player_sub(split_sub_collection)
+    # coords = get_sub_coordinates
+    # sub_coords = evaluate_coordinates(coords)
+    # split_sub_collection = sub_coords.split(" ")
+    # make_player_sub(split_sub_collection)
   end
 
   def display_player_message
@@ -268,14 +268,16 @@ class Player
     coord
   end
 
-  def evaluate_coordinates(coord)
-    #make sure to return coordinates in correct form upcase
-    #should have a length of five
-    #string[0] and [2] should be letter between and d
-    #string[1] and [3] should be numbers between 1-4
-    #second squre must be adjacent to first square
-    #should work for sub coords too
-    coord
+  def evaluate_coordinates_form(coord)
+    good_coords = /([A-D])([1-4])([ ])([A-D])([1-4])/
+    match = good_coords.match(coord)
+    if match && coord.length == 5
+      coord
+    else
+      puts "That is not a valid entry. Make sure your entry follows this form A1 A2."
+      coord = display_player_message
+      evaluate_coordinates_form(coord)
+    end
   end
 
   def place_player_ship(coord_collection)

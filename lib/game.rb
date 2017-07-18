@@ -25,8 +25,8 @@ class Game
       player = Player.new
       comp.computer_ship_placement
       player.player_ship_placement
-      game_play_loop(comp, player)
-      print_final_message
+      # game_play_loop(comp, player)
+      # print_final_message
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
