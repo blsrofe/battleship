@@ -130,4 +130,11 @@ class PlayerTest < Minitest::Test
     coord = "D3 D4"
     assert_equal "D3 D4", player.evaluate_coordinates_form(coord)
   end
+
+  def test_knows_if_player_entered_coordinates_are_next_to_each_other
+    player = Player.new
+    coord = "D3 D4"
+    assert_equal "D3 D4", player.evaluate_coordinates_proximity(coord)
+  end
+
 end

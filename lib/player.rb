@@ -248,7 +248,8 @@ class Player
   def player_ship_placement
     coord = display_player_message
     des_coords = evaluate_coordinates_form(coord)
-    split_coord_collection = des_coords.split(" ")
+    final_des_coords = evaluate_coordinates_proximity(des_coords)
+    split_coord_collection = final_des_coords.split(" ")
     make_player_destroyer(split_coord_collection)
     # coords = get_sub_coordinates
     # sub_coords = evaluate_coordinates(coords)
@@ -277,6 +278,41 @@ class Player
       puts "That is not a valid entry. Make sure your entry follows this form A1 A2."
       coord = display_player_message
       evaluate_coordinates_form(coord)
+    end
+  end
+
+  def evaluate_coordinates_proximity(coord)
+    if horizontal? || vertical?
+      coord
+    else
+      puts "These are not valid coordinates. Make sure your coordinates are next to each other."
+      coord = display_player_message
+      des_coords = evaluate_coordinates_form(coord)
+      evaluate_coordinates_proximity(des_coords)
+    end
+  end
+
+  def horizontal?(coord)
+    empty_square_column = empty_square.keys.join[1].to_i
+    empty_square_row = empty_square.keys.join[0]
+    empty_square_name = empty_square.keys.join
+    if @board.left_occupied?(empty_square_name) && @board.right_occupied?(empty_square_name)
+      place_ship_vertically(empty_square)
+    elsif @board.left_occupied?(empty_square_name)
+      new_square = go_right(empty_square_column, empty_square_row)
+      new_square
+    elsif @board.right_occupied?(empty_square_name)
+      new_square = go_left(empty_square_column, empty_square_row)
+      new_square
+    else
+        choice = ["left", "right"].sample
+        if choice == "left"
+          new_square = go_left(empty_square_column, empty_square_row)
+          new_square
+        else
+          new_square = go_right(empty_square_column, empty_square_row)
+          new_square
+        end
     end
   end
 
