@@ -292,27 +292,27 @@ class Player
     end
   end
 
-  def horizontal?(coord)
-    empty_square_column = empty_square.keys.join[1].to_i
-    empty_square_row = empty_square.keys.join[0]
-    empty_square_name = empty_square.keys.join
-    if @board.left_occupied?(empty_square_name) && @board.right_occupied?(empty_square_name)
-      place_ship_vertically(empty_square)
-    elsif @board.left_occupied?(empty_square_name)
-      new_square = go_right(empty_square_column, empty_square_row)
-      new_square
-    elsif @board.right_occupied?(empty_square_name)
-      new_square = go_left(empty_square_column, empty_square_row)
-      new_square
+  def horizontal?(coord)#test this
+    split_coord_collection = coord.split(" ")
+    first_coord = split_coord_collection[0]
+    second_cord = split_coord_collection[1]
+    difference = (first_coord[1].to_i - second_cord[1].to_i).abs
+    if first_coord[0] == second_cord[0] && difference = 1
+      true
     else
-        choice = ["left", "right"].sample
-        if choice == "left"
-          new_square = go_left(empty_square_column, empty_square_row)
-          new_square
-        else
-          new_square = go_right(empty_square_column, empty_square_row)
-          new_square
-        end
+      false
+    end
+  end
+
+  def vertical?(coord)#test this 
+    split_coord_collection = coord.split(" ")
+    first_coord = split_coord_collection[0]
+    second_cord = split_coord_collection[1]
+    difference = (first_coord[0].ord - second_cord[0].ord).abs
+    if first_coord[1] == second_cord[1] && difference = 1
+      true
+    else
+      false
     end
   end
 
