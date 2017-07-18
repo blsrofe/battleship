@@ -292,24 +292,24 @@ class Player
     end
   end
 
-  def horizontal?(coord)#test this, not working
+  def horizontal?(coord)#test this
     split_coord_collection = coord.split(" ")
     first_coord = split_coord_collection[0]
     second_cord = split_coord_collection[1]
     difference = (first_coord[1].to_i - second_cord[1].to_i).abs
-    if first_coord[0] == second_cord[0] && difference = 1
+    if first_coord[0] == second_cord[0] && difference == 1
       true
     else
       false
     end
   end
 
-  def vertical?(coord)#test this, not working
+  def vertical?(coord)#test this
     split_coord_collection = coord.split(" ")
     first_coord = split_coord_collection[0]
     second_cord = split_coord_collection[1]
     difference = (first_coord[0].ord - second_cord[0].ord).abs
-    if first_coord[1] == second_cord[1] && difference = 1
+    if first_coord[1] == second_cord[1] && difference == 1
       true
     else
       false
