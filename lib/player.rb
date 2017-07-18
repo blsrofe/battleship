@@ -251,8 +251,9 @@ class Player
     final_des_coords = evaluate_coordinates_proximity(des_coords)
     split_coord_collection = final_des_coords.split(" ")
     make_player_destroyer(split_coord_collection)
-    # coords = get_sub_coordinates
-    # sub_coords = evaluate_coordinates(coords)
+    coords = get_sub_coordinates
+    sub_coords = evaluate_sub_coordinates_form(coords)
+    final_sub_coords = evaluate_sub_coordinates_proximity(sub_coords)
     # split_sub_collection = sub_coords.split(" ")
     # make_player_sub(split_sub_collection)
   end
@@ -295,9 +296,9 @@ class Player
   def horizontal?(coord)
     split_coord_collection = coord.split(" ")
     first_coord = split_coord_collection[0]
-    second_cord = split_coord_collection[1]
-    difference = (first_coord[1].to_i - second_cord[1].to_i).abs
-    if first_coord[0] == second_cord[0] && difference == 1
+    second_coord = split_coord_collection[1]
+    difference = (first_coord[1].to_i - second_coord[1].to_i).abs
+    if first_coord[0] == second_coord[0] && difference == 1
       true
     else
       false
@@ -337,6 +338,57 @@ class Player
   def make_player_sub(split_sub_collection)
     place_player_ship(split_sub_collection)
     @submarine = Ship.new(split_sub_collection[0], split_sub_collection[1], split_sub_collection[2])
+  end
+
+  def evaluate_sub_coordinates_form(coord)
+    good_coords = /([A-D])([1-4])([ ])([A-D])([1-4])([ ])([A-D])([1-4])/
+    match = good_coords.match(coord)
+    if match && coord.length == 8
+      coord
+    else
+      puts "That is not a valid entry. Make sure your entry follows this form A1 A2 A3."
+      coord = display_player_message
+      evaluate_sub_coordinates_form(coord)
+    end
+  end
+
+  def evaluate_sub_coordinates_proximity(coord)
+    if sub_horizontal?(coord) || sub_vertical?(coord)
+      coord
+    else
+      puts "These are not valid coordinates. Make sure your coordinates are next to each other."
+      coord = display_player_message
+      sub_coords = evaluate_sub_coordinates_form(coord)
+      evaluate_sub_coordinates_proximity(sub_coords)
+    end
+  end
+
+  def sub_horizontal?(coord)
+    split_coord_collection = coord.split(" ")
+    first_coord = split_coord_collection[0]
+    second_coord = split_coord_collection[1]
+    third_coord = split_coord_collection[2]
+    difference = (first_coord[1].to_i - second_coord[1].to_i).abs
+    difference_2 = (second_coord[1].to_i - third_coord[1].to_i).abs
+    if first_coord[0] == second_coord[0] && difference == 1 && difference_2 == 1
+      true
+    else
+      false
+    end
+  end
+
+  def sub_vertical?(coord)
+    split_coord_collection = coord.split(" ")
+    first_coord = split_coord_collection[0]
+    second_coord = split_coord_collection[1]
+    third_coord = split_coord_collection[2]
+    difference = (first_coord[0].ord - second_coord[0].ord).abs
+    difference_1 = (second_coord[0].ord - third_coord[0].ord).abs
+    if first_coord[1] == second_coord[1] && difference == 1 && difference_1 == 1
+      true
+    else
+      false
+    end
   end
 
 end
