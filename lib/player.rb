@@ -254,8 +254,8 @@ class Player
     coords = get_sub_coordinates
     sub_coords = evaluate_sub_coordinates_form(coords)
     final_sub_coords = evaluate_sub_coordinates_proximity(sub_coords)
-    # split_sub_collection = sub_coords.split(" ")
-    # make_player_sub(split_sub_collection)
+    split_sub_collection = sub_coords.split(" ")
+    make_player_sub(split_sub_collection)
   end
 
   def display_player_message
