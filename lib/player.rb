@@ -157,18 +157,34 @@ class Player
     look_left_square = @board.left_occupied?(empty_square_name)
     empty_square_column = empty_square.keys.join[1].to_i
     empty_square_row = empty_square.keys.join[0]
-    left_square = go_left(empty_square_column, empty_square_row)
-    right_square = go_right(empty_square_column, empty_square_row)
-    look_two_squares_right = @board.right_occupied?(right_square.keys.join)
-    look_two_squares_left = @board.left_occupied?(left_square.keys.join)
     if look_left_square && look_right_square
       false
-    elsif look_left_square && look_two_squares_right
-      false
-    elsif look_right_square && look_two_squares_left
-      false
+    elsif look_left_square
+      right_square = go_right(empty_square_column, empty_square_row)
+      look_two_squares_right = @board.right_occupied?(right_square.keys.join)
+      if look_two_squares_right
+        false
+      else
+        true
+      end
+    elsif look_right_square
+      left_square = go_left(empty_square_column, empty_square_row)
+      look_two_squares_left = @board.left_occupied?(left_square.keys.join)
+      if look_two_squares_right
+        false
+      else
+        true
+      end
     else
-      true
+      left_square = go_left(empty_square_column, empty_square_row)
+      look_two_squares_left = @board.left_occupied?(left_square.keys.join)
+      right_square = go_right(empty_square_column, empty_square_row)
+      look_two_squares_right = @board.right_occupied?(right_square.keys.join)
+      if look_two_squares_right && look_two_squares_left
+        false
+      else
+        true
+      end
     end
   end
 
