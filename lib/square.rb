@@ -5,7 +5,7 @@ class Square
 
   def initialize
     @occupied = false
-    @shot = ""
+    @shot = " "
   end
 
 end

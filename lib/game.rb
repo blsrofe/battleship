@@ -107,34 +107,32 @@ class Game
   def validate_on_board(shot)
     good_shot = /([A-D])([1-4])/
     match = good_shot.match(shot)
-    if match && space.length == 2
+    if match && shot.length == 2
       shot
     else
       puts "That is not a valid entry. Please try again."
       shot = get_player_shot
-      validate_shoot(shot)
+      validate_on_board(shot)
     end
   end
 
   def shoot(shot, comp)
-    square = comp.board.layout.find_square(shot)
-    already_called = comp.shots.include? do |coord|
-      coord == shot
-    end
+    square = comp.board.find_square(shot)
+    already_called = comp.shots.include?(shot)
     if already_called
       puts "You have already picked that square. Please select another."
       player_shot_sequence(comp)
-    elsif square.values.occupied == true
+    elsif square.values[0].occupied == true
       comp.shots << shot
-      square.values.shot = "H"
+      square.values[0].shot = "H"
       puts "That is a hit!"
-      if comp.destroyer.coordinates.include? {|coord| coord == shot}
+      if comp.destroyer.coordinates.include?(shot)
         comp.destroyer.hit_points -= 1
       end
-        if comp.destoyer.hit_points == 0
-          puts "You sunk the destroyer!"
+        if comp.destroyer.hit_points == 0
+          puts "You sunk the destroyer!"#getting this message after only one hit
         end
-      elsif comp.submarine.coordinates.include? {|coord| coord == shot}
+      elsif comp.submarine.coordinates.include?(shot)
         comp.submarine.hit_points -= 1
         if comp.submarine.hit_points == 0
           puts "You sunk the sub!"
@@ -142,7 +140,7 @@ class Game
       #destroyer and sub are now arrays in ship class
     else
       comp.shots << shot
-      square.values.shot = "M"
+      square.values[0].shot = "M"
       puts "That is a miss"
     end
   end
@@ -175,11 +173,9 @@ class Game
 
   def find_random(player)
     random_square_name = player.board.layout.sample.keys.join
-    already_called = player.shots.include? do |shot|
-      random_square_name == shot
-    end
+    already_called = player.shots.include?(random_square_name)
     if already_called
-      find_random(player, shots)
+      find_random(player)
     else
       player.shots << random_square_name
       random_square_name
@@ -187,24 +183,25 @@ class Game
   end
 
   def hit_or_miss(square_name, player)
-    square = player.board.layout.find_square(square_name)
-    if square.values.occupied == true
-    square.values.shot = "H"
+    square = player.board.find_square(square_name)
+    if square.values[0].occupied == true
+    square.values[0].shot = "H"
     score = "hit"
     score
-      if player.destroyer.coordinates.include? {|coord| coord == square_name}
+      if player.destroyer.coordinates.include?(square_name)
         player.destroyer.hit_points -= 1
-      elsif player.submarine.coordinates.include? {|coord| coord == square_name}
+      elsif player.submarine.coordinates.include?(square_name)
         player.submarine.hit_points -= 1
       end
-    else square.values.occupied == false
-      square.values.shot = "M"
+    else square.values[0].occupied == false
+      square.values[0].shot = "M"
       score = "miss"
       score
     end
   end
 
     def player_message(square_name, score)
+      #score is coming through as 2 on a hit
       if score == "hit"
         puts "Your opponent got a hit on square #{square_name}!"
       else
