@@ -104,7 +104,6 @@ class Game
     shot = get_player_shot
     good_shot = validate_on_board(shot)
     shoot(good_shot, comp)
-    ship_sunk(comp)
   end
 
   def get_player_shot
@@ -137,8 +136,10 @@ class Game
       puts "That is a hit!"
       if comp.destroyer.coordinates.include?(shot)
         comp.destroyer.hit_points -= 1
+        destroyer_sunk(comp)
       elsif comp.submarine.coordinates.include?(shot)
         comp.submarine.hit_points -= 1
+        sub_sunk(comp)
       end
     else
       comp.shots << shot
