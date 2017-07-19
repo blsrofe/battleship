@@ -104,6 +104,7 @@ class Game
     shot = get_player_shot
     good_shot = validate_on_board(shot)
     shoot(good_shot, comp)
+    ship_sunk(comp)
   end
 
   def get_player_shot
@@ -136,19 +137,25 @@ class Game
       puts "That is a hit!"
       if comp.destroyer.coordinates.include?(shot)
         comp.destroyer.hit_points -= 1
-      end
-        if comp.destroyer.hit_points == 0
-          puts "You sunk the destroyer!"#getting this message after only one hit
-        end
       elsif comp.submarine.coordinates.include?(shot)
         comp.submarine.hit_points -= 1
-        if comp.submarine.hit_points == 0
-          puts "You sunk the sub!"
-        end
+      end
     else
       comp.shots << shot
       square.values[0].shot = "M"
       puts "That is a miss"
+    end
+  end
+
+  def destroyer_sunk(comp)
+    if comp.destroyer.hit_points == 0
+      puts "You sunk the destroyer!"#getting this message after only one hit
+    end
+  end
+
+  def sub_sunk(comp)
+    if comp.submarine.hit_points == 0
+      puts "You sunk the sub!"
     end
   end
 
