@@ -24,7 +24,7 @@ class Game
       comp.computer_ship_placement
       player.player_ship_placement
       game_play_loop(comp, player)
-      # print_final_message
+      print_final_message
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -76,6 +76,7 @@ class Game
     while winner == nil
       player_view(comp)
       player_shot_sequence(comp)
+      break if winner?(comp)
       computer_view(player)
       # computer shoots
     end
@@ -128,15 +129,29 @@ class Game
       puts "That is a hit!"
       if comp.destroyer.coordinates.include? {|coord| coord == shot}
         comp.destroyer.hit_points -= 1
+        if comp.destoyer.hit_points == 0
+          puts "You sunk the destroyer!"
+        end
       elsif comp.submarine.coordinates.include? {|coord| coord == shot}
-        comp.destroyer.hit_points -= 1
-      #need to add hit on ship and decide if game is over
+        comp.submarine.hit_points -= 1
+        if comp.submarine.hit_points == 0
+          puts "You sunk the sub!"
+        end
       #destroyer and sub are now arrays in ship class
       #check to see if ship is at 0 health points and if there is a winner
     else
       shots << shot
       square.values.shot = "M"
       puts "That is a miss"
+  end
+
+  def winner?(player)
+    if player.submarine.hit_points == 0 && player.destroyer.hit_points == 0
+      @winner = "player"
+      true
+    else
+      false
+    end
   end
 
 end
