@@ -4,12 +4,14 @@ class Player
 
   attr_accessor :board,
                 :destroyer,
-                :submarine
+                :submarine,
+                :shots
 
-  def initialize(board = Board.new, destroyer = nil, submarine = nil)
+  def initialize(board = Board.new, destroyer = nil, submarine = nil, shots = [])
     @board = board
     @destroyer = destroyer
     @submarine = submarine
+    @shots = shots
   end
 
   def computer_ship_placement#how do I test this?

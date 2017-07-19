@@ -73,12 +73,15 @@ class Game
   end
 
   def game_play_loop(comp, player)
-    while winner == nil
+    while @winner == nil
       player_view(comp)
       player_shot_sequence(comp)
       break if winner?(comp)
-      computer_view(player)
-      # computer shoots
+      player_view(comp)
+      enter_to_continue
+      computer_shot_sequence(player)
+      winner?(player)
+
     end
   end
 
@@ -93,8 +96,7 @@ class Game
   def player_shot_sequence(comp)
     shot = get_player_shot
     good_shot = validate_on_board(shot)
-    shots = []
-    shoot(good_shot, comp, shots)
+    shoot(good_shot, comp)
   end
 
   def get_player_shot
@@ -115,16 +117,16 @@ class Game
     end
   end
 
-  def shoot(shot, comp, shots)
+  def shoot(shot, comp)
     square = comp.board.layout.find_square(shot)
-    already_called = shots.include? do |coord|
+    already_called = comp.shots.include? do |coord|
       coord == shot
     end
     if already_called
       puts "You have already picked that square. Please select another."
       player_shot_sequence(comp)
     elsif square.values.occupied == true
-      shots << shot
+      comp.shots << shot
       square.values.shot = "H"
       puts "That is a hit!"
       if comp.destroyer.coordinates.include? {|coord| coord == shot}
@@ -140,7 +142,7 @@ class Game
       #destroyer and sub are now arrays in ship class
       #check to see if ship is at 0 health points and if there is a winner
     else
-      shots << shot
+      comp.shots << shot
       square.values.shot = "M"
       puts "That is a miss"
   end
@@ -154,4 +156,45 @@ class Game
     end
   end
 
-end
+  def enter_to_continue
+    puts "Please press enter to continue"
+    command = gets.chomp
+    if command.empty?
+      return
+    else
+      enter_to_continue
+    end
+  end
+
+  def computer_shot_sequence(player)
+    square_name = find_random(player)
+    hit_or_miss(square_name, player)
+
+  end
+
+  def find_random(player)
+    random_square_name = player.board.layout.sample.keys.join
+    already_called = player.shots.include? do |shot|
+      random_square_name == shot
+    end
+    if already_called
+      find_random(player, shots)
+    else
+      player.shots << random_square_name
+      random_square_name
+    end
+  end
+
+  def hit_or_miss(square_name, player)
+    square = player.board.layout.find_square(square_name)
+    if square.values.occupied == true
+    square.values.shot = "H"
+      if player.destroyer.coordinates.include? {|coord| coord == square_name}
+        player.destroyer.hit_points -= 1
+      elsif player.submarine.coordinates.include? {|coord| coord == square_name}
+        player.submarine.hit_points -= 1
+      end
+    else square.values.occupied == false
+      square.values.shot = "M"
+    end
+  end
