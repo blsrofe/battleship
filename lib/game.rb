@@ -24,7 +24,7 @@ class Game
       comp.computer_ship_placement#some ships are being placed around corners
       player.player_ship_placement
       time = game_play_loop(comp, player)
-      print_final_message(time)
+      print_final_message(time, comp, player)
     elsif choice == "i" or choice == "input"
       puts give_instructions
       puts ""
@@ -77,7 +77,7 @@ class Game
     until @winner != nil
       player_view(comp)
       player_shot_sequence(comp)
-      winner?(comp)#break if
+      winner?(comp)
       player_view(comp)
       enter_to_continue
       computer_shot_sequence(player)
@@ -88,14 +88,14 @@ class Game
     final_time
   end
 
-  def print_final_message(time)
+  def print_final_message(time, comp, player)
     if @winner == "player"
       puts "Congratulation, you won!"
-      puts "It took you #{game.comp.shot.count} shots."
+      puts "It took you #{comp.shots.count} shots."
       puts "This game lasted #{time} seconds."
     elsif @winner == "computer"
       puts "Sorry, you lost this time. Better luck next time!"
-      puts "It took your opponent #{game.player.shot.count} shots to sink your ships."
+      puts "It took your opponent #{player.shots.count} shots to sink your ships."
       puts "This game lasted #{time} seconds."
     end
   end
