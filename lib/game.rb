@@ -21,7 +21,7 @@ class Game
     if choice == "p" || choice == "play"
       comp = Player.new
       player = Player.new
-      comp.computer_ship_placement
+      comp.computer_ship_placement#some ships are being placed around corners
       player.player_ship_placement
       game_play_loop(comp, player)
       print_final_message
@@ -72,11 +72,11 @@ class Game
     puts "==========="
   end
 
-  def game_play_loop(comp, player)
-    while @winner == nil
+  def game_play_loop(comp, player)#will not break out of game when a player wins
+    until @winner != nil
       player_view(comp)
       player_shot_sequence(comp)
-      break if winner?(comp)
+      winner?(comp)#break if
       player_view(comp)
       enter_to_continue
       computer_shot_sequence(player)
@@ -200,7 +200,6 @@ class Game
   end
 
     def player_message(square_name, score)
-      #score is coming through as an integer on a hit
       if score == "hit"
         puts "Your opponent got a hit on square #{square_name}!"
       else
