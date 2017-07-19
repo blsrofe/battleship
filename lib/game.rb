@@ -81,7 +81,6 @@ class Game
       enter_to_continue
       computer_shot_sequence(player)
       winner?(player)
-
     end
   end
 
@@ -131,6 +130,7 @@ class Game
       puts "That is a hit!"
       if comp.destroyer.coordinates.include? {|coord| coord == shot}
         comp.destroyer.hit_points -= 1
+      end
         if comp.destoyer.hit_points == 0
           puts "You sunk the destroyer!"
         end
@@ -140,11 +140,11 @@ class Game
           puts "You sunk the sub!"
         end
       #destroyer and sub are now arrays in ship class
-      #check to see if ship is at 0 health points and if there is a winner
     else
       comp.shots << shot
       square.values.shot = "M"
       puts "That is a miss"
+    end
   end
 
   def winner?(player)
@@ -168,8 +168,9 @@ class Game
 
   def computer_shot_sequence(player)
     square_name = find_random(player)
-    hit_or_miss(square_name, player)
-
+    score = hit_or_miss(square_name, player)
+    player_message(square_name, score)
+    computer_view(player)
   end
 
   def find_random(player)
@@ -189,6 +190,8 @@ class Game
     square = player.board.layout.find_square(square_name)
     if square.values.occupied == true
     square.values.shot = "H"
+    score = "hit"
+    score
       if player.destroyer.coordinates.include? {|coord| coord == square_name}
         player.destroyer.hit_points -= 1
       elsif player.submarine.coordinates.include? {|coord| coord == square_name}
@@ -196,5 +199,17 @@ class Game
       end
     else square.values.occupied == false
       square.values.shot = "M"
+      score = "miss"
+      score
     end
   end
+
+    def player_message(square_name, score)
+      if score == "hit"
+        puts "Your opponent got a hit on square #{square_name}!"
+      else
+        puts "Your opponent missed at square #{square_name}!"
+      end
+    end
+
+end
