@@ -137,7 +137,6 @@ class Game
         if comp.submarine.hit_points == 0
           puts "You sunk the sub!"
         end
-      #destroyer and sub are now arrays in ship class
     else
       comp.shots << shot
       square.values[0].shot = "M"
@@ -187,12 +186,12 @@ class Game
     if square.values[0].occupied == true
     square.values[0].shot = "H"
     score = "hit"
-    score
       if player.destroyer.coordinates.include?(square_name)
         player.destroyer.hit_points -= 1
       elsif player.submarine.coordinates.include?(square_name)
         player.submarine.hit_points -= 1
       end
+      score
     else square.values[0].occupied == false
       square.values[0].shot = "M"
       score = "miss"
@@ -201,7 +200,7 @@ class Game
   end
 
     def player_message(square_name, score)
-      #score is coming through as 2 on a hit
+      #score is coming through as an integer on a hit
       if score == "hit"
         puts "Your opponent got a hit on square #{square_name}!"
       else
