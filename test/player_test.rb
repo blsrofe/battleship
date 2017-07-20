@@ -113,16 +113,13 @@ class PlayerTest < Minitest::Test
   def test_can_add_player_destroyer
     player = Player.new
     player.destroyer = player.make_player_destroyer(["A1", "A2"])
-    assert_equal player.destroyer.first_square, player.board.layout[0].keys.join
-    assert_equal player.destroyer.second_square, player.board.layout[1].keys.join
+    assert_equal ["A1", "A2"], player.destroyer.coordinates
   end
 
   def test_can_add_player_sub
     player = Player.new
     player.submarine = player.make_player_sub(["A1", "B1", "C1"])
-    assert_equal player.submarine.first_square, player.board.layout[0].keys.join
-    assert_equal player.submarine.second_square, player.board.layout[4].keys.join
-    assert_equal player.submarine.third_square, player.board.layout[8].keys.join
+    assert_equal ["A1", "B1", "C1"], player.submarine.coordinates
   end
 
   def test_if_vertical_knows_coordinates_are_next_to_each_other

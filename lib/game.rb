@@ -42,7 +42,10 @@ class Game
   end
 
   def give_instructions
-    "You have two ships. You will be prompted to place your ships."
+    "You have two ships. You will be prompted to place your ships. Enter the coordinates
+    with a space separating them. You will then be asked to fire at a square on your
+    opponents board. If you hit all squares of their ship, you will sink their ship.
+    The first player to sink both of their opponents ships is the winner."
   end
 
   def computer_view(player)
