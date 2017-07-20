@@ -1,4 +1,26 @@
-module Computer
+require './lib/board'
+require './lib/ship'
+
+class Computer
+
+  attr_accessor :board,
+                :destroyer,
+                :submarine,
+                :shots
+
+  def initialize(board = Board.new, destroyer = nil, submarine = nil, shots = [])
+    @board = board
+    @destroyer = destroyer
+    @submarine = submarine
+    @shots = shots
+  end
+
+  def computer_ship_placement
+    place_computer_destroyer
+    choice, empty_square = valid_sub_placement_identifier
+    place_computer_sub(choice, empty_square)
+  end
+
 
   def place_computer_destroyer
     empty_square = find_empty_square

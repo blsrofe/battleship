@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/ship'
-require './lib/player'
+require './lib/human'
+require './lib/computer'
 require 'pry'
 class Game
 
@@ -19,8 +20,8 @@ class Game
 
   def start_sequence(choice)
     if choice == "p" || choice == "play"
-      comp = Player.new
-      player = Player.new
+      comp = Computer.new
+      player = Human.new
       comp.computer_ship_placement
       player.player_ship_placement
       time = game_play_loop(comp, player)
