@@ -21,7 +21,7 @@ class Game
     if choice == "p" || choice == "play"
       comp = Player.new
       player = Player.new
-      comp.computer_ship_placement#some ships are being placed around corners
+      comp.computer_ship_placement
       player.player_ship_placement
       time = game_play_loop(comp, player)
       print_final_message(time, comp, player)
@@ -150,7 +150,7 @@ class Game
 
   def destroyer_sunk(comp)
     if comp.destroyer.hit_points == 0
-      puts "You sunk the destroyer!"#getting this message after only one hit
+      puts "You sunk the destroyer!"
     end
   end
 
@@ -208,7 +208,7 @@ class Game
         player.submarine.hit_points -= 1
       end
       score
-    else square.values[0].occupied == false
+    elsif square.values[0].occupied == false
       square.values[0].shot = "M"
       score = "miss"
       score

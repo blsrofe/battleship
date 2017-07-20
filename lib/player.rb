@@ -256,7 +256,7 @@ class Player
     coords = get_sub_coordinates
     sub_coords = evaluate_sub_coordinates_form(coords)
     final_sub_coords = evaluate_sub_coordinates_proximity(sub_coords)
-    split_sub_collection = sub_coords.split(" ")
+    split_sub_collection = final_sub_coords.split(" ")
     make_player_sub(split_sub_collection)
   end
 
@@ -349,7 +349,7 @@ class Player
       coord
     else
       puts "That is not a valid entry. Make sure your entry follows this form A1 A2 A3."
-      coord = display_player_message
+      coord = get_sub_coordinates
       evaluate_sub_coordinates_form(coord)
     end
   end
