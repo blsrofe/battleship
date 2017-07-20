@@ -16,4 +16,10 @@ class GameTest < Minitest::Test
     assert_equal instructions, game.give_instructions
   end
 
+  def test_it_can_quit
+    game = Game.new
+    message = "Thank you for playing."
+    assert_equal message, game.start_sequence("q")
+  end
+
 end

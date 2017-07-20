@@ -26,14 +26,16 @@ class Game
       player.player_ship_placement
       time = game_play_loop(comp, player)
       print_final_message(time, comp, player)
-    elsif choice == "i" or choice == "input"
+    elsif choice == "i" or choice == "instructions"
       puts give_instructions
       puts ""
       puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
       choice = gets.chomp.downcase
       start_sequence(choice)
     elsif choice == "q" or choice == "quit"
-      puts "Thank you for playing."
+      message = "Thank you for playing."
+      puts message
+      message
     else
       puts "That is not a valid command."
       puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
@@ -72,11 +74,10 @@ class Game
     puts "B#{square[4].values[0].shot}#{square[5].values[0].shot}#{square[6].values[0].shot}#{square[7].values[0].shot}"
     puts "C#{square[8].values[0].shot}#{square[9].values[0].shot}#{square[10].values[0].shot}#{square[11].values[0].shot}"
     puts "D#{square[12].values[0].shot}#{square[13].values[0].shot}#{square[14].values[0].shot}#{square[15].values[0].shot}"
-
     puts "==========="
   end
 
-  def game_play_loop(comp, player)#will not break out of game when a player wins
+  def game_play_loop(comp, player)
     start_time = Time.now
     until @winner != nil
       player_view(comp)
@@ -136,7 +137,7 @@ class Game
       player_shot_sequence(comp)
     elsif square.values[0].occupied == true
       comp.shots << shot
-      square.values[0].shot = "H"
+      square.values[0].shot = "\u{2620}"
       puts "That is a hit!"
       if comp.destroyer.coordinates.include?(shot)
         comp.destroyer.hit_points -= 1

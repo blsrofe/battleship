@@ -38,7 +38,7 @@ class Computer
     end
   end
 
-  def find_empty_square #comp
+  def find_empty_square
     random_square = @board.layout.sample
     if random_square.values[0].occupied == false
       return random_square
@@ -47,7 +47,7 @@ class Computer
     end
   end
 
-  def place_ship_horizonally(empty_square)#sometimes gets placed on corner
+  def place_ship_horizonally(empty_square)
     empty_square_column = empty_square.keys.join[1].to_i
     empty_square_row = empty_square.keys.join[0]
     empty_square_name = empty_square.keys.join
@@ -60,14 +60,8 @@ class Computer
       new_square = go_left(empty_square_column, empty_square_row)
       new_square
     else
-        choice = ["left", "right"].sample
-        if choice == "left"
-          new_square = go_left(empty_square_column, empty_square_row)
-          new_square
-        else
-          new_square = go_right(empty_square_column, empty_square_row)
-          new_square
-        end
+      new_square = left_or_right(empty_square_column, empty_square_row)
+      new_square
     end
   end
 
@@ -84,14 +78,30 @@ class Computer
       new_square = go_down(empty_square_column, empty_square_row)
       new_square
     else
-        choice = ["up", "down"].sample
-        if choice == "up"
-          new_square = go_up(empty_square_column, empty_square_row)
-          new_square
-        else
-          new_square = go_down(empty_square_column, empty_square_row)
-          new_square
-        end
+      new_square = up_or_down(empty_square_column, empty_square_row)
+      new_square
+    end
+  end
+
+  def up_or_down(empty_square_column, empty_square_row)
+    choice = ["up", "down"].sample
+    if choice == "up"
+      new_square = go_up(empty_square_column, empty_square_row)
+      new_square
+    else
+      new_square = go_down(empty_square_column, empty_square_row)
+      new_square
+    end
+  end
+
+  def left_or_right(empty_square_column, empty_square_row)
+    choice = ["left", "right"].sample
+    if choice == "left"
+      new_square = go_left(empty_square_column, empty_square_row)
+      new_square
+    else
+      new_square = go_right(empty_square_column, empty_square_row)
+      new_square
     end
   end
 
@@ -115,8 +125,6 @@ class Computer
       new_key_row = "C"
     elsif empty_square_row == "C"
       new_key_row = "D"
-    elsif empty_square_row == "D"
-
     end
     new_key = new_key_row += empty_square_column.to_s
     new_square = @board.find_square(new_key)
@@ -137,7 +145,7 @@ class Computer
     new_square
   end
 
-  def valid_sub_placement_identifier#test this
+  def valid_sub_placement_identifier
     empty_square = find_empty_square
     vertical = evaluate_vertical?(empty_square)
     horizontal = evaluate_horizontal?(empty_square)
