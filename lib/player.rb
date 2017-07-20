@@ -14,7 +14,7 @@ class Player
     @shots = shots
   end
 
-  def computer_ship_placement#how do I test this?
+  def computer_ship_placement
     place_computer_destroyer
     choice, empty_square = valid_sub_placement_identifier
     place_computer_sub(choice, empty_square)
