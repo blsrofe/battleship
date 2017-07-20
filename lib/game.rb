@@ -56,11 +56,11 @@ class Game
     puts "==========="
     puts "Computer Board"
     puts "==========="
-    puts ".1234"
-    puts "A#{square[0].values[0].shot}#{square[1].values[0].shot}#{square[2].values[0].shot}#{square[3].values[0].shot}"
-    puts "B#{square[4].values[0].shot}#{square[5].values[0].shot}#{square[6].values[0].shot}#{square[7].values[0].shot}"
-    puts "C#{square[8].values[0].shot}#{square[9].values[0].shot}#{square[10].values[0].shot}#{square[11].values[0].shot}"
-    puts "D#{square[12].values[0].shot}#{square[13].values[0].shot}#{square[14].values[0].shot}#{square[15].values[0].shot}"
+    puts ".1  2  3  4"
+    puts "A#{square[0].values[0].shot}  #{square[1].values[0].shot}  #{square[2].values[0].shot}  #{square[3].values[0].shot}"
+    puts "B#{square[4].values[0].shot}  #{square[5].values[0].shot}  #{square[6].values[0].shot}  #{square[7].values[0].shot}"
+    puts "C#{square[8].values[0].shot}  #{square[9].values[0].shot}  #{square[10].values[0].shot}  #{square[11].values[0].shot}"
+    puts "D#{square[12].values[0].shot}  #{square[13].values[0].shot}  #{square[14].values[0].shot}  #{square[15].values[0].shot}"
     puts "==========="
   end
 
@@ -69,11 +69,11 @@ class Game
     puts "==========="
     puts "Your Board"
     puts "==========="
-    puts ".1234"
-    puts "A#{square[0].values[0].shot}#{square[1].values[0].shot}#{square[2].values[0].shot}#{square[3].values[0].shot}"
-    puts "B#{square[4].values[0].shot}#{square[5].values[0].shot}#{square[6].values[0].shot}#{square[7].values[0].shot}"
-    puts "C#{square[8].values[0].shot}#{square[9].values[0].shot}#{square[10].values[0].shot}#{square[11].values[0].shot}"
-    puts "D#{square[12].values[0].shot}#{square[13].values[0].shot}#{square[14].values[0].shot}#{square[15].values[0].shot}"
+    puts ".1  2  3  4"
+    puts "A#{square[0].values[0].shot}  #{square[1].values[0].shot}  #{square[2].values[0].shot}  #{square[3].values[0].shot}"
+    puts "B#{square[4].values[0].shot}  #{square[5].values[0].shot}  #{square[6].values[0].shot}  #{square[7].values[0].shot}"
+    puts "C#{square[8].values[0].shot}  #{square[9].values[0].shot}  #{square[10].values[0].shot}  #{square[11].values[0].shot}"
+    puts "D#{square[12].values[0].shot}  #{square[13].values[0].shot}  #{square[14].values[0].shot}  #{square[15].values[0].shot}"
     puts "==========="
   end
 
@@ -148,7 +148,7 @@ class Game
       end
     else
       comp.shots << shot
-      square.values[0].shot = "M"
+      square.values[0].shot = "\u{1f44e}"
       puts "That is a miss"
     end
   end
@@ -205,7 +205,7 @@ class Game
   def hit_or_miss(square_name, player)
     square = player.board.find_square(square_name)
     if square.values[0].occupied == true
-    square.values[0].shot = "H"
+    square.values[0].shot = "\u{2620}"
     score = "hit"
       if player.destroyer.coordinates.include?(square_name)
         player.destroyer.hit_points -= 1
@@ -214,7 +214,7 @@ class Game
       end
       score
     elsif square.values[0].occupied == false
-      square.values[0].shot = "M"
+      square.values[0].shot = "\u{1f44e}"
       score = "miss"
       score
     end
